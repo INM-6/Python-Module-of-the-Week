@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Exercise — context manager to limit computation time
 
@@ -35,3 +36,19 @@ https://docs.python.org/3/library/signal.html#signal.signal
 
 http://linux.die.net/man/2/alarm
 """
+
+import signal
+import time
+import contextlib
+
+def _handler(signum, frame):
+    raise RuntimeError('computation timed out')
+
+@contextlib.contextmanager
+def timelimit(seconds):
+    oldhandler = signal.signal(signal.SIGALRM, _handler)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.signal(signal.SIGALRM, oldhandler)

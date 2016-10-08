@@ -4,7 +4,7 @@ import sys, time
 import pytest
 
 def test_we_can_import_module():
-    timelimit = pytest.importorskip('timelimit')
+    pytest.importorskip('timelimit')
 
 def test_context_manager_exists():
     timelimit = pytest.importorskip('timelimit')

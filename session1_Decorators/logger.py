@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Exercise — wrapping a function to do something on every invocation
 
@@ -21,5 +22,12 @@ g returns 12
 f returns 22
 """
 
-def logger(f):
-    ...
+import functools
+
+def logger(func):
+    def wrapper(*args, **kwargs):
+        print('{.__name__} is called with args {} kwargs {}'.format(func, args, kwargs))
+        ans = func(*args, **kwargs)
+        print(func.__name__, 'returns', ans)
+        return ans
+    return functools.update_wrapper(wrapper, func)

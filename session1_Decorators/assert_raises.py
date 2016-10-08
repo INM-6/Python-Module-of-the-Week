@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Exercise — context manager to check an exception was raised
 
@@ -24,5 +25,15 @@ Traceback (most recent call last):
 AssertionError: expected ZeroDivisionError exception
 """
 
+import contextlib
+
+@contextlib.contextmanager
 def assert_raises(exception_type):
-    ...
+    try:
+        yield
+    except exception_type:
+        pass
+    except Exception:
+        raise AssertionError('wrong exception type')
+    else:
+        raise AssertionError('unexpected success')

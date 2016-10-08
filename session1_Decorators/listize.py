@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Exercise: listize decorator
 
@@ -18,7 +19,7 @@ This looks much nicer when written as a generator.
 
 ① Convert lucky_numbers to be a generator.
 
-② Write a 'listize' decorator which gathers th results from a
+② Write a 'listize' decorator which gathers the results from a
 generator and returns a list and use it to wrap the new lucky_numbers().
 
 Subexercise: ③ Write an 'arrayize' decorator which returns the results
@@ -32,5 +33,9 @@ in a numpy array instead of a list.
 [1, 2]
 """
 
-def listize():
-    ...
+import functools
+
+def listize(func):
+    def wrapper(*args, **kwargs):
+        return list(func(*args, **kwargs))
+    return functools.update_wrapper(wrapper, func)

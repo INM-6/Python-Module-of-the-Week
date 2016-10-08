@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import contextlib, io, collections, sys, math
+import sys, math
 
 def test_we_can_import_module():
     import caching

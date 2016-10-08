@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import contextlib, io, collections, sys
+import sys
 import numpy as np
 import pytest
 

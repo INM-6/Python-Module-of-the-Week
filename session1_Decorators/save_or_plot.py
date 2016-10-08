@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Exercise: matplotlib!
 
@@ -11,8 +12,18 @@ with save_or_plot('name') as f:
 """
 
 import sys
+import contextlib
+from matplotlib import pyplot
 
 SAVEFIGS = sys.argv[1:2] == ['--save']
 
+@contextlib.contextmanager
 def save_or_plot(name):
-    ...
+    f = pyplot.figure()
+    if not SAVEFIGS:
+        f.canvas.set_window_title(name)
+    yield f
+    if SAVEFIGS:
+        f.savefig(name + '.svg')
+    else:
+        f.show()

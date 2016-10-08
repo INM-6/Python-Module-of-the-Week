@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, tempfile, os, subprocess
+import sys, tempfile, os
 import numpy as np
 
 def test_we_can_import_module():

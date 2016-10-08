@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import time, re, io, sys
-import contextlib
+import sys
 
 def test_we_can_import_module():
     import assert_raises

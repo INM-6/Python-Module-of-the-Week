@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import contextlib, io, collections, sys
+import contextlib, io, sys
 
 def test_we_can_import_module():
     import logger

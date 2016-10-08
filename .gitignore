@@ -1,0 +1,8 @@
+.cache/
+.testmondata
+__pycache__/
+
+.idea
+*/.git*
+*/.gitignore
+*.pyc

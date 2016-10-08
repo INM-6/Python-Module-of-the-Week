@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import contextlib, io, collections, sys
+import sys
 
 def test_we_can_import_module():
     import printtime
