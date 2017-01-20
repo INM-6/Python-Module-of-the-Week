@@ -1,0 +1,151 @@
+[INFO] [2016.10.22 19:21:12 /gpfs/homeb/pcp0/pcp0006/sdvlp/nest-simulator/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.10.22 19:21:12 /gpfs/homeb/pcp0/pcp0006/sdvlp/nest-simulator/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.10.22 19:21:12 /gpfs/homeb/pcp0/pcp0006/sdvlp/nest-simulator/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.10.22 19:21:12 /gpfs/homeb/pcp0/pcp0006/sdvlp/nest-simulator/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+NEST v2.11.0 (C) 2004 The NEST Initiative
+user_scale: 2.222200e+00
+user_nvp: 48
+user_logfile: (./data/15270/data_S1_N2.2222_P1_T48)
+
+Oct 22 19:21:12 ModelManager::clear_models_ [Info]: 
+    Models will be cleared and parameters reset.
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Deleting existing random number generators
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Creating default RNGs
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Deleting existing random number generators
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Creating default RNGs
+
+Oct 22 19:21:12 Network::create_grng_ [Info]: 
+    Creating new default global RNG
+0 91752 # virt_mem_0
+0 91752 # virt_mem_0
+
+Oct 22 19:21:12 ModelManager::clear_models_ [Info]: 
+    Models will be cleared and parameters reset.
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Deleting existing random number generators
+
+Oct 22 19:21:12 Network::create_rngs_ [Info]: 
+    Creating default RNGs
+
+Oct 22 19:21:12 Network::create_grng_ [Info]: 
+    Creating new default global RNG
+
+Oct 22 19:21:13 SimulationManager::set_status [Info]: 
+    Temporal resolution changed.
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Creating excitatory population.
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Creating inhibitory population.
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Creating excitatory stimulus generator.
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Creating excitatory spike detector.
+0 165364 # virt_mem_after_nodes
+0 165364 # virt_mem_after_nodes
+0] BuildNode time     : 0.14 s
+0 0.14 # build_time_nodes
+0 0.14 # build_time_nodes
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Connecting stimulus generators.
+
+Oct 22 19:21:13 BuildNetwork [Info]: 
+    Connecting excitatory -> excitatory population.
+
+Oct 22 19:21:28 BuildNetwork [Info]: 
+    Connecting inhibitory -> excitatory population.
+
+Oct 22 19:21:30 BuildNetwork [Info]: 
+    Connecting excitatory -> inhibitory population.
+
+Oct 22 19:21:33 BuildNetwork [Info]: 
+    Connecting inhibitory -> inhibitory population.
+0] BuildEdge time     : 21.95 s
+0 21.95 # build_edge_time 
+0 21.95 # build_edge_time 
+0 3674592 # virt_mem_after_edges
+0 3674592 # virt_mem_after_edges
+
+Oct 22 19:21:35 NodeManager::prepare_nodes [Info]: 
+    Preparing 25096 nodes for simulation.
+
+Oct 22 19:21:35 SimulationManager::simulate [Warning]: 
+    The requested simulation time is not an integer multiple of the minimal 
+    delay in the network. This may result in inconsistent results under the 
+    following conditions: (i) A network contains more than one source of 
+    randomness, e.g., two different poisson_generators, and (ii) Simulate is 
+    called repeatedly with simulation times that are not multiples of the 
+    minimal delay.
+
+Oct 22 19:21:35 SimulationManager::resume [Info]: 
+    Number of local nodes: 25096
+    Simulaton time (ms): 100
+    Number of OpenMP threads: 48
+    Number of MPI processes: 1
+
+Oct 22 19:21:39 SimulationManager::resume [Info]: 
+    Simulation finished.
+0] Preparation time   : 4.68 s
+
+0 3674756 # virt_mem_after_presim
+0 3674756 # virt_mem_after_presim
+0 4.68 # presim_time
+0 4.68 # presim_time
+
+Oct 22 19:21:39 NodeManager::prepare_nodes [Info]: 
+    Preparing 25096 nodes for simulation.
+
+Oct 22 19:21:39 SimulationManager::simulate [Warning]: 
+    The requested simulation time is not an integer multiple of the minimal 
+    delay in the network. This may result in inconsistent results under the 
+    following conditions: (i) A network contains more than one source of 
+    randomness, e.g., two different poisson_generators, and (ii) Simulate is 
+    called repeatedly with simulation times that are not multiples of the 
+    minimal delay.
+
+Oct 22 19:21:39 SimulationManager::resume [Info]: 
+    Number of local nodes: 25096
+    Simulaton time (ms): 1000
+    Number of OpenMP threads: 48
+    Number of MPI processes: 1
+
+Oct 22 19:22:38 SimulationManager::resume [Info]: 
+    Simulation finished.
+0 3674756 # virt_mem_after_sim
+0 3674756 # virt_mem_after_sim
+0 58.9 # sim_time
+0 58.9 # sim_time
+0] Simulation time   : 58.9 s
+
+
+Brunel Network Simulation
+Number of VPs          : 48
+Number of Neurons      : 25000
+Number of Synapses     : 62525000
+Node creation time     : 0.14 s
+Edge creation time     : 21.95 s
+Simulation time        : 58.9 s
+
+VmSize of this job     : 3674756 (k)B
+
+--------------------------------------------------
+Name                     Capacity     Available    
+--------------------------------------------------
+iaf_neuron               25728000     12328000     
+poisson_generator        13440000     13413120     
+siblingcontainer         4608000      4607520      
+subnet                   9600000      9571200      
+--------------------------------------------------
