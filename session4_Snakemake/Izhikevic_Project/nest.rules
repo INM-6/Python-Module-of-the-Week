@@ -1,0 +1,31 @@
+
+rule install_nest:
+    output:
+        expand('{nest_folder}/instl/bin/nest_vars.sh',nest_folder=NEST_SRC_DIR)
+    params:
+        nest_dir=NEST_SRC_DIR,
+    shell:
+        """
+        cd {params.nest_dir}
+        mkdir -p bld
+        mkdir -p instl
+        cd bld
+        cmake -DCMAKE_INSTALL_PREFIX:PATH={params.nest_dir}/instl -Dwith-python=ON {params.nest_dir}
+        make -j8
+        make install
+        """
+
+rule run_model:
+    output:
+        weights=expand("{folder}/{pre}_{file}",folder=NEST_DATA_DIR,file=WEIGHT_SAMPLES,pre=PREFIX),
+        spikes=expand("{folder}/{pre}_{file}",folder=NEST_DATA_DIR,file=SPIKE_SAMPLES,pre=PREFIX)
+    input:
+        model='{folder}/model.py'.format(folder=NEST_CODE_DIR),
+        nest=rules.install_nest.output
+    shell:
+        """
+        source {{input.nest}}
+        cd {folder}
+        python model.py -o {output_folder}
+        """.format(folder=NEST_CODE_DIR,output_folder=os.path.join(CUR_DIR,NEST_DATA_DIR))
+

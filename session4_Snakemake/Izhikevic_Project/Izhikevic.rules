@@ -1,0 +1,47 @@
+
+rule compile_poly_spnet:
+    input:
+        expand('{folder}/poly_spnet.cpp',folder=IZHI_CODE_DIR)
+    output:
+        expand('{folder}/poly_spnet',folder=IZHI_EXEC_DIR)
+    shell:
+        """
+        mkdir -p {folder}
+        echo {{output}}
+	    g++ -o {{output}} {{input}} -ljsoncpp
+	    """.format(folder=IZHI_EXEC_DIR)
+
+rule compile_reformat:
+    input:
+        expand('{folder}/reformat.cpp',folder=ANA_DIR)
+    output:
+        expand('{folder}/reformat',folder=ANA_DIR)
+    shell:
+        'g++ -o {output} {input} -ljsoncpp'
+
+rule run_and_move_poly_spnet:
+    input:
+        rules.compile_poly_spnet.output
+    output:
+        spikes=expand('{folder}/spikes.dat',folder=IZHI_DATA_DIR),
+        weights=expand('{folder}/all.dat',folder=IZHI_DATA_DIR),
+        groups=expand('{folder}/polyall.dat',folder=IZHI_DATA_DIR)
+
+    shell:
+        """
+        cd {folder}
+        ./poly_spnet
+        cd ..
+        mv *.dat {mv_folder}
+        """.format(folder=IZHI_EXEC_DIR,mv_folder=IZHI_DATA_DIR)
+
+
+rule reformat_izhi:
+    input:
+        rules.run_and_move_poly_spnet.output.weights,
+        rules.compile_reformat.output
+    output:
+        expand('{folder}/all_reformat.json',folder=IZHI_DATA_DIR)
+    shell:
+        '{folder}/reformat {{input[0]}} {{output}}'.format(folder=ANA_DIR)
+

@@ -1,0 +1,105 @@
+import os,glob,sys
+sys.path.insert(0, 'code/NEST_model/') #ugly but not sure how to otherwise handle this
+from params import *
+
+#Define folders:
+CUR_DIR=os.getcwd()
+CODE_DIR=os.path.join(CUR_DIR,'code')
+DATA_DIR=os.path.join(CUR_DIR,'data')
+
+nest_prefix='NEST_model'
+izhi_prefix='original_model'
+NEST_CODE_DIR=os.path.join(CODE_DIR,nest_prefix)
+NEST_DATA_DIR=os.path.join(DATA_DIR,nest_prefix)
+
+IZHI_CODE_DIR=os.path.join(CODE_DIR,izhi_prefix)
+IZHI_DATA_DIR=os.path.join(DATA_DIR,izhi_prefix)
+
+#compile poly_spnet into a folder because it outputs into ../
+IZHI_EXEC_DIR=os.path.join(IZHI_CODE_DIR,'exec')
+ANA_DIR=os.path.join(CODE_DIR,'analysis')
+NEST_SRC_DIR=os.path.join(
+            CODE_DIR,'nest/nest-simulator')
+
+
+PREFIX = ['NEST']
+WEIGHT_SAMPLES = ['all_{:02d}.json'.format(i) for i in range(1,N_measure+1)]        #define the weights files output to model.py and input to the cpp code
+SPIKE_SAMPLES = ['spikes-{:02d}-0.gdf'.format(1002) for i in range(1,N_measure+1)]        #define the spike files
+GROUP_SAMPLES = ['poly_all_{:02d}.json'.format(i) for i in range(1,N_measure+1)]   # define files output of cpp code and input to example_plots.py
+PLOT_FILES = ['plot_8.pdf','plot_5.pdf','plot_7.pdf']
+MAN_DIR='manuscript/8538120cqhctwxyjvvn'
+FIG_DIR='figures'
+
+include: "nest.rules"
+include: "Izhikevic.rules"
+
+
+rule all:
+    input:
+        expand('{folder}/main.pdf',folder=MAN_DIR)
+        #expand("{folder}/{pre}_{file}",folder=FIG_DIR,file=PLOT_FILES,pre=PREFIX)
+
+rule compile_find_polychronous_groups:
+	output:
+	    expand('{folder}/find_polychronous_groups',folder=ANA_DIR)
+	input:
+	    expand('{folder}/find_polychronous_groups.cpp',folder=ANA_DIR)
+	shell:
+	    'g++ -o {output} {input} -ljsoncpp'
+
+rule find_groups:
+    output:
+        nest=expand("{folder}/{pre}_{file}",folder=NEST_DATA_DIR,file=GROUP_SAMPLES,pre=PREFIX),
+        original=expand("{folder}/reformat_groups.json",folder=IZHI_DATA_DIR)
+    input:
+        program=rules.compile_find_polychronous_groups.output,
+        nest=rules.run_model.output.weights,
+        original=rules.reformat_izhi.output
+    run:
+        shell('{input.program} {input.original} {output.original}')
+        for job in zip(input.nest,output.nest):
+            shell('{{input.program}} {} {}'.format(job[0],job[1]))
+
+
+
+rule make_plots:
+    output:
+        expand("{folder}/{pre}_{file}",folder=FIG_DIR,file=PLOT_FILES,pre=PREFIX)
+    input:
+        nest_weights=rules.run_model.output.weights,
+        nest_groups=rules.find_groups.output.nest,
+        nest_spikes=rules.run_model.output.spikes,
+        original_weights=expand("{folder}/{file}",folder=IZHI_DATA_DIR,file='all_reformat.json'),
+        original_groups=rules.run_and_move_poly_spnet.output.groups,
+        original_spikes=rules.run_and_move_poly_spnet.output.spikes,
+        reformat_groups=rules.find_groups.output.original
+    run:
+        shell('cd {};python make_plots.py -g {} -s {} --prefix {} -w {}'.format(ANA_DIR,input.original_groups,input.original_spikes,'original',input.original_weights))
+        shell('cd {};python make_plots.py -g {} -s {} --prefix {} -w {}'.format(ANA_DIR,input.reformat_groups,input.original_spikes,'reformat',input.original_weights))
+        for group,weight,spike in zip(input.nest_groups,input.nest_weights,input.nest_spikes):
+            shell('cd {};python make_plots.py -g {} -s {} --prefix {} -w {}'.format(ANA_DIR,group,spike,weight.split('_')[0].split('/')[-1],weight))
+
+
+
+rule move_to_manuscript:
+    output:
+         plots=expand("{folder}/figures/{file}",folder=MAN_DIR,file=PLOT_FILES)
+    input:
+         rules.make_plots.output
+    run:
+        for move in zip(input,output):
+            shell("cp {} {}".format(move[0],move[1]))
+
+
+rule create_pdf:
+    output:
+        pdf=expand('{folder}/main.pdf',folder=MAN_DIR)
+    input:
+        tex='manuscript/8538120cqhctwxyjvvn/main.tex',
+        plots=rules.move_to_manuscript.output.plots
+    shell:
+        "cd {folder};pdflatex main.tex".format(folder=MAN_DIR)
+
+
+
+

@@ -1,0 +1,69 @@
+import os,glob,sys
+#Define folders:
+CUR_DIR=os.getcwd()
+CODE_DIR=os.path.join(CUR_DIR,'py_code')
+DATA_DIR=os.path.join(CUR_DIR,'data')
+
+active_data_set='Benchmark2019'
+ACTIVE_DIR=os.path.join(DATA_DIR,active_data_set)
+
+rule all:
+    input:
+        os.path.join(ACTIVE_DIR,'Seed_0/data_processing_0.pdf'),
+        os.path.join(ACTIVE_DIR,'Seed_1/data_processing_1.pdf'),
+        os.path.join(ACTIVE_DIR,'Seed_2/data_processing_2.pdf'),
+
+rule clean:
+    shell:
+        'rm -r {current_folder}'.format(current_folder=ACTIVE_DIR)
+
+
+rule writeout_para_dicts:
+    output:
+        os.path.join(ACTIVE_DIR,'param_dict.json')
+    params:
+        folder=ACTIVE_DIR
+    shell:
+        'python py_code/ICA_params.py --foldername {params.folder}'
+
+rule generate_benchmarkdata:
+    input:
+        rules.writeout_para_dicts.output
+    output:
+        os.path.join(ACTIVE_DIR,'Seed_{id}/data_{id}.json')
+    params:
+        folder=ACTIVE_DIR
+    threads:
+        4
+    shell:
+        'python py_code/synthdata.py --foldername {params.folder} --identifier {wildcards.id}'
+
+rule analysis:
+    input:
+        os.path.join(ACTIVE_DIR,'Seed_{id}/data_{id}.json')
+    output:
+        amps=os.path.join(ACTIVE_DIR,'Seed_{id}/amps_{id}.json'),
+        src=os.path.join(ACTIVE_DIR,'Seed_{id}/src_{id}.json'),
+        cluster=os.path.join(ACTIVE_DIR,'Seed_{id}/cluster_{id}.json'),
+    params:
+        folder=ACTIVE_DIR
+    threads: 4
+    shell:
+        'mpirun -n {threads} python py_code/analysis.py --foldername {params.folder} --identifier {wildcards.id}'
+
+
+rule make_plots:
+    input:
+        amps=os.path.join(ACTIVE_DIR,'Seed_{id}/amps_{id}.json'),
+        src=os.path.join(ACTIVE_DIR,'Seed_{id}/src_{id}.json'),
+        cluster=os.path.join(ACTIVE_DIR,'Seed_{id}/cluster_{id}.json')
+    output:
+        cluster_plot=os.path.join(ACTIVE_DIR,'Seed_{id}/data_processing_{id}.pdf'),
+        source_plot=os.path.join(ACTIVE_DIR,'Seed_{id}/source_density_{id}.pdf'),
+    params:
+        folder=ACTIVE_DIR
+    threads: 4
+    shell:
+        'mpirun -n {threads} python py_code/ExamplePlotting.py --foldername {params.folder} --identifier {wildcards.id}'
+
+
