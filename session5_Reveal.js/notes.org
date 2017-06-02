@@ -1,0 +1,27 @@
+* Getting started (full setup)
+  1. Clone the repo hosted at https://github.com/hakimel/reveal.js
+  2. Install nodejs: `apt install nodejs`
+  3. cd to the directory and install all required packages with `npm
+     install`; if `node` can not be found or a similar error occurs,
+     you might need the nodejs-legacy package
+  4. Start the server with `npm start`
+  5. Open a web browser and nagivate to http://localhost:8000/
+* Create your own slides
+  - index.html in the root directory of reveal.js contains the
+    presentation
+  - remove this file and replace it with your own content, or link to
+    file stored in a different repository
+  - see https://github.com/hakimel/reveal.js for documentation of
+    reveal features
+  - see any search engine for help with css and html markup
+  - you can create your own classes by including a custom stylesheet: 
+    #+BEGIN_SRC html
+    <link rel="stylesheet" href="<link_to_custom_stylesheet.css">
+    #+END_SRC
+  - while editing, make sure to turn history on: keep browser on
+    current slide
+  - speaker notes can be activated by pressing "s"
+* Publish your presentation
+  - if your repository is hosted on GitHub, create a new branch
+    `gh-pages`
+  - GitHub will automatically generate webpages, reachable via http://username.github.io/repository_name
