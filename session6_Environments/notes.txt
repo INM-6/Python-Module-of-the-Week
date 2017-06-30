@@ -1,0 +1,169 @@
+Python Environments
+===================
+
+
+Search order of Python packages
+-------------------------------
+
+* /usr/lib/python2.7/dist-packages
+* ~/.local/lib/python2.7/site-packages/
+* For virtual environments: ~/.virtualenvs/VENV/lib/python2.7/site-packages/
+* For anaconda environments: ~/ANACONDADIR/envs/VENV/lib/python2.7/site-packages/
+* For "non-installed" repos:
+    * export PYTHONPATH=<xxx>:<xxx>
+    * import sys; sys.path.insert(0,'xxx')
+
+
+Finding out what is being used
+------------------------------
+
+Use the file attribute of a module:
+numpy.__file__
+'/usr/local/lib/python2.7/dist-packages/numpy/__init__.pyc'
+
+
+Installing system packages to [[/usr/lib/python2.7/dist-packages]]
+------------------------------------------------------------------
+
+sudo apt-get install ...
+sudo pip install <package>
+sudo python setup.py
+
+
+Installing user packages using pip to [[~/.local/lib/python2.7/site-packages/]]
+-------------------------------------------------------------------------------
+
+pip install --user ...
+pip install --upgrade --user ...
+
+
+virtualenv virtual environment
+------------------------------
+In short: manage different package environments based on the system python
+
+* Install python-virtualenv, virtualenvwrapper unsing apt-get, or even better:
+   pip install --user virtualenv and virtualenvwrapper
+* Default directory: .virtualenvs
+* Commands to list and switch environments:
+    * lsvirtualenv
+    * showvirtualenv [env]
+    * workon 
+    * deactivate
+* Commands to create an environment
+    * mkvirtualenv <name>
+        * --python=PYTHON_EXE (in /usr/bin/python)
+        * --no-site-packages → Default behavior
+    * pip install — without --user!
+* Configuration of virtual environments
+    * cdvirtualenv
+    * allvirtualenv
+    * cdsitepackages
+    * Add custom directories to the Python path when the directory is activated: add2virtualenv directory1 directory2 ... (use -d to delete a path)
+    * Use global packages or not: toggleglobalsitepackages
+    * WORKON_HOME environment variable to define standard directories
+
+
+Using anaconda environments
+---------------------------
+In short: A complete stand-alone python system in your home directory
+
+### Installing
+Install from: https://www.continuum.io/downloads
+
+### Basic commands
+
+* Creating environments
+    * conda create --name myenv anaconda
+    * conda create --prefix ~/mydir anaconda
+    * source activate / deactivate
+    * conda create --name bunnies python=3 astroid babel
+    * conda create --name flowers --clone snowflakes
+    * conda info --envs
+    * conda env list
+    * conda remove --name flowers --all
+* Working with environments
+    * List packages: 
+        * in active env: conda list
+        * in non-active: conda list -n snowflakes
+    * Search available package: conda search beautiful-soup
+    * Install into an environment: conda install --name bunnies beautiful-soup
+    * Install from channel: conda install -c pandas bottleneck
+    * Updating:
+        * conda update package
+        * conda update conda
+        * conda update python
+        * conda update --all
+    * conda remove --name bunnies iopro OR conda env remove --name bunnies OR just delete it
+
+### Adding channels
+Note: Channels are not locked to a specific environment!
+
+List config and channls installed (in order of precendence)
+ conda config --show
+
+Adding a channel:
+ conda config --add channels new_channel
+
+Installing Conda Forge https://conda-forge.github.io/#about
+ conda config --add channels conda-forge
+
+Installing Bioconda https://bioconda.github.io/
+(install in this order!)
+ conda config --add channels conda-forge
+ conda config --add channels defaults
+ conda config --add channels r
+ conda config --add channels bioconda
+
+
+### Saving an environment
+
+* Copy the environment using rsync -- this works amazingly well!
+* Save the environment using 
+ conda env export > environment.yml 
+* Recover the environment using
+ conda env create -f environment.yml
+
+An environment ylm file looks like this:
+ name: stats2
+ channels:
+  - javascript
+ dependencies:
+  - python=3.4   # or 2.7
+  - bokeh=0.9.2
+  - numpy=1.9.*
+  - nodejs=0.10.*
+  - flask
+  - pip:
+    - Flask-Testing
+
+
+### Revisions
+
+Conda keeps a log of all installs, you can acces using
+ conda list --revisions # list all revisions
+ conda install --revision 2 # revert to revision 2
+
+
+
+### Adding environment variables, e.g. PYTHON PATH:
+
+You need to create the following directories and files for activating and deactivating:
+ cd /home/jsmith/anaconda3/envs/analytics
+ mkdir -p ./etc/conda/activate.d
+ mkdir -p ./etc/conda/deactivate.d
+ touch ./etc/conda/activate.d/env_vars.sh
+ touch ./etc/conda/deactivate.d/env_vars.sh
+
+
+File for activating the environment
+ #!/bin/sh
+ export MY_KEY='secret-key-value'
+ export MY_FILE=/path/to/my/file/
+
+
+File for deactivating the environment
+ #!/bin/sh
+ unset MY_KEY
+ unset MY_FILE
+
+
