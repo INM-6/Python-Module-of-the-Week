@@ -1,0 +1,10 @@
+List of references:
+
+Interactive Git Tutorial
+https://try.github.io
+
+Git Tutorial for Beginners
+https://www.youtube.com/watch?v=HVsySz-h9r4
+
+Git specific prompt modification
+https://github.com/magicmonty/bash-git-prompt
