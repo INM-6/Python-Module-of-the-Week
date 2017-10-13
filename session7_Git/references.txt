@@ -8,3 +8,7 @@ https://www.youtube.com/watch?v=HVsySz-h9r4
 
 Git specific prompt modification
 https://github.com/magicmonty/bash-git-prompt
+
+Git pages at INM-6 Wiki
+https://www.csn.fz-juelich.de/wiki/GIT#Available_GIT_repositories
+https://www.csn.fz-juelich.de/wiki/Using_git_at_the_INM-6
