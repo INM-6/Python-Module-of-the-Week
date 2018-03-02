@@ -1,0 +1,355 @@
+
+    
+    
+    
+    
+
+
+    
+
+
+    
+    \section{jupyter\_contrib\_nbextensions}\label{jupyterux5fcontribux5fnbextensions}
+
+This PyMOTW is about
+\href{https://github.com/ipython-contrib/jupyter_contrib_nbextensions}{jupyter\_contrib\_nbextensions},
+a repository containing a collection of extensions that add
+functionality to the Jupyter notebook. These extensions are mostly
+written in Javascript and will be loaded locally in your browser.
+
+LINKS: *
+https://github.com/ipython-contrib/jupyter\_contrib\_nbextensions *
+http://jupyter-contrib-nbextensions.readthedocs.io
+
+The notebook extensions can be selected and configured in your Jupyter
+home tree via the tab \emph{Nbextensions}
+(http://localhost:8888/tree\#nbextensions\_configurator).
+
+    \subsection{Table of contents 2 (toc2)}\label{table-of-contents-2-toc2}
+
+The toc2 extension enables to collect all running headers and display
+them in a floating window, as a sidebar or with a navigation menu. The
+extension is also draggable, resizable, collapsable, dockable and
+features automatic numerotation with unique links ids, and an optional
+toc cell.
+
+Have a look at the options in the Nbextensions tab.
+
+\subsubsection{Conclusion}\label{conclusion}
+
+\textbf{I love this}. Simple and easy. Look at the sidebar table of
+contents. Neat, right? Let's you jump to different sections quite easy
+and also shows you which section is {currently selected} and which
+section is {queued to run}.
+
+    \subsection{LaTeX\_envs}\label{latexux5fenvs}
+
+\subsubsection{\texorpdfstring{Equations,
+\texttt{\textbackslash{}ref\{eq:\}}, theorem
+environments}{Equations, \textbackslash{}ref\{eq:\}, theorem environments}}\label{equations-refeq-theorem-environments}
+
+The following code
+The dot-product is defined by equation (\ref{eq:dotp}) in theorem \ref{theo:dotp} just below:
+\begin{theorem}[Dot Product] \label{theo:dotp}
+Let $u$ and $v$ be two vectors of $\mathbb{R}^n$. The dot product can be expressed as
+\begin{equation}
+\label{eq:dotp}
+u^Tv = |u||v| \cos \theta,
+\end{equation}
+where $\theta$ is the angle between $u$ and $v$ ...
+\end{theorem}
+    renders like this:
+
+The dot-product is defined by equation (\ref{eq:dotp}) in theorem
+\ref{theo:dotp} just below: \begin{theorem}[Dot Product]
+\label{theo:dotp} Let \(u\) and \(v\) be two vectors of
+\(\mathbb{R}^n\). The dot product can be expressed as
+
+\begin{equation}
+\label{eq:dotp}
+u^Tv = |u||v| \cos \theta,
+\end{equation}
+
+where \(\theta\) is the angle between \(u\) and \(v\) ...
+\end{theorem}
+
+    \subsubsection{Citations, bibliography and
+references}\label{citations-bibliography-and-references}
+
+It seems, that you can place a \texttt{.bib} file in the same directory
+as the notebook and use \texttt{\textbackslash{}cite\{\}} to generate
+citations. Let's see if it works: \cite{Thomson1887}, \cite{Hebb1949}
+
+Unfortunately, it does not really work for me, maybe because
+nbextensions said that latex\_envs was \emph{possibly incompatible}. My
+output after clicking \emph{Read bibliography and generate references
+section} is the following:
+
+    \paragraph{References}\label{references}
+
+{[}Thomson1887{]} !! \emph{This reference was not found in library.bib }
+!!
+
+{[}Hebb1949{]} !! \emph{This reference was not found in library.bib } !!
+
+    \subsubsection{Conclusions}\label{conclusions}
+
+Probably awesome if it works. Especially citations would be great to
+have. However, I don't know if I really need the environments. Math
+works alright in markdown also without this extension.
+
+    \subsection{Exercise and Exercise2}\label{exercise-and-exercise2}
+
+These are two extensions for Jupyter, for hiding/showing solutions
+cells.
+
+\subsubsection{Exercise}\label{exercise}
+
+\begin{exercise}[Laplace Equation] Write the Laplace
+equation \(\Delta\Phi=0\) in spherical coordinates.
+\end{exercise}
+
+    SOLUTION
+
+    \begin{equation}
+\frac{1}{r^2}\frac{\partial}{\partial r} \left( r^2 \frac{\partial}{\partial r} \Phi \right) + \frac{1}{r^2 \sin\theta}\frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \Phi \right) + \frac{1}{r^2 \sin^2\theta}\frac{\partial}{\partial \phi^2} \Phi
+\end{equation}
+
+    \subsubsection{Exercise2}\label{exercise2}
+
+\begin{exercise}[Laplace Equation] Write the Laplace
+equation \(\Delta\Phi=0\) in spherical coordinates.
+\end{exercise}
+
+    SOLUTION
+
+    \begin{equation}
+\frac{1}{r^2}\frac{\partial}{\partial r} \left( r^2 \frac{\partial}{\partial r} \Phi \right) + \frac{1}{r^2 \sin\theta}\frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \Phi \right) + \frac{1}{r^2 \sin^2\theta}\frac{\partial}{\partial \phi^2} \Phi
+\end{equation}
+
+    \subsubsection{Conclusions}\label{conclusions}
+
+I encounter some bugs with Exercise2, the solution shows up after
+reloading the notebook. Therefore the winner is Exercise! Could be
+useful for workshops..
+
+    \subsection{Python in markdown}\label{python-in-markdown}
+%
+\begin{lstlisting}
+a=3.765
+\end{lstlisting}
+    Print the value of the variable in markdown using
+a={{a}}
+    a=3.765
+
+    \subsubsection{Conclusion}\label{conclusion}
+
+\texttt{¯\textbackslash{}\_(ツ)\_/¯}
+
+    \section{Interactive and animated
+plots}\label{interactive-and-animated-plots}
+
+\subsection{Some random data to plot}\label{some-random-data-to-plot}
+%
+\begin{lstlisting}
+import numpy as np
+import elephant
+import neo
+import quantities as pq
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from IPython.display import HTML
+import matplotlib.animation as animation
+\end{lstlisting}%
+\begin{lstlisting}
+# Load block from ANDA data
+block = np.load('/home/papen/git_repos/ANDA2017/data/data2.npy').item()
+
+# Get spiketrain of first regular trial
+sts = []
+idx = block.annotations['all_trial_ids']
+sts.append(block.filter(targdict={'trial_id': idx[0]}, objects=neo.Segment)[0].spiketrains)
+
+# Generate binned time series of spike counts and apply PCA
+binsize = 100*pq.ms
+binned = elephant.conversion.BinnedSpikeTrain(sts[0], binsize=binsize).to_array()
+pca = PCA(n_components=3)
+pca.fit(binned.T)
+PC  = np.matmul(pca.components_,binned)[:3,:]
+t = np.arange(len(PC[i,:]))*binsize
+\end{lstlisting}
+    \subsection{Matplotlib notebook}\label{matplotlib-notebook}
+
+Using \texttt{\%matplotlib\ notebook} activates the nbagg backend added
+in matplotlib 1.4, which will include a javascript interface for
+interaction with inline figures in the notebook. Apparently for Python2
+one can also use \texttt{\%matplotlib\ nbagg}.
+%
+\begin{lstlisting}
+%matplotlib notebook
+fig = plt.figure(figsize=(10,5))
+ax = fig.add_subplot(121, projection='3d')
+ax.plot(PC[0,:], PC[1,:], PC[2,:], '-k')
+ax.set_xlabel('Comp. 1')
+ax.set_ylabel('Comp. 2')
+ax.set_zlabel('Comp. 3')
+
+ax = fig.add_subplot(122)
+for i in xrange(len(PC[:,0])):
+    ax.plot(t, PC[i,:], '-', label='PC {}'.format(i))
+ax.set_xlabel('time [ms]')
+ax.set_ylabel('PC')
+plt.legend()
+\end{lstlisting}%
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+
+    \subsection{Animated plots with HTML}\label{animated-plots-with-html}
+
+    The following example is taken from
+https://matplotlib.org/examples/animation/simple\_anim.html
+%
+\begin{lstlisting}
+%matplotlib inline
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+line, = ax.plot(t, binned[0,:])
+
+def animate(i, title_num=None):
+    line.set_ydata(binned[i,:])  # update the data
+    ax = plt.gca()
+    ax.set_title('Spike counts of unit {}'.format(i))
+    return line,
+
+# Init only required for blitting to give a clean slate.
+def init():
+    line.set_ydata([])
+    return line,
+
+ani = animation.FuncAnimation(fig, animate, np.arange(1, len(binned[:,0])), init_func=init,
+                              interval=500, blit=True)
+ax1.set_xlabel('time [ms]')
+ax1.set_ylabel('spike count')
+
+HTML(ani.to_html5_video())
+\end{lstlisting}
+    \section{Nbconvert}\label{nbconvert}
+%
+\begin{lstlisting}
+import elephant
+from elephant.spike_train_generation import homogeneous_poisson_process as HPP
+from quantities import Hz, ms
+\end{lstlisting}%
+\begin{lstlisting}
+data1 = [HPP(rate=10*Hz, t_start=0*ms, t_stop=60000*ms) for _ in range(200)]
+data2 = [HPP(rate=10.2*Hz, t_start=0*ms, t_stop=60000*ms) for _ in range(200)]
+\end{lstlisting}%
+\begin{lstlisting}
+w = 200*ms
+
+# Compute PSTH
+psth1 = elephant.statistics.time_histogram(data1, binsize = w, output='rate').rescale('Hz')
+psth2 = elephant.statistics.time_histogram(data2, binsize = w, output='rate').rescale('Hz')
+
+# Compute ISI dist
+ISIpdf1 = np.histogram(elephant.statistics.isi(data1), bins=w, rng=[0*pq.s, None], density=True)
+ISIpdf2 = misc.isi_pdf(data2, bins=w, rng=[0*pq.s, None], density=True)
+\end{lstlisting}%
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        
+
+        NameErrorTraceback (most recent call last)
+
+        <ipython-input-10-9c3f52b8fad6> in <module>()
+          6 
+          7 \# Compute ISI dist
+    ----> 8 ISIpdf1 = misc.isi\_pdf(data1, bins=w, rng=[0*pq.s, None], density=True)
+          9 ISIpdf2 = misc.isi\_pdf(data2, bins=w, rng=[0*pq.s, None], density=True)
+
+
+        NameError: name 'misc' is not defined
+
+    \end{Verbatim}
+%
+\begin{lstlisting}
+# Set figure
+plt.figure(figsize=(12,8))
+plt.subplots_adjust(top=.85, right=.85, left=.2, bottom=.1, hspace=.7 , wspace=.3)
+num_row,num_col = 3, 4
+
+# Raster plots
+ax = plt.subplot2grid((num_row,num_col), (0, 0), rowspan=1, colspan=3)
+misc.raster(data1, ms = .5, xlabel='time', ylabel='unit id', color='k')
+plt.title('data 1')
+plt.subplot2grid((num_row,num_col), (1, 0), rowspan=1, colspan=3, sharex=ax)
+misc.raster(data2, ms = .5, xlabel='time', ylabel='unit id', color='g')
+plt.title('data 2')
+
+# PSTH
+plt.subplot2grid((num_row,num_col), (2, 0), rowspan=1, colspan=3,sharex=ax)
+plt.title('PSTH')
+plt.ylabel('# spikes')
+plt.plot(psth1.times.rescale('ms'), psth1,color='k')
+plt.plot(psth2.times.rescale('ms'), psth2,color='g')
+ax.set_xlim(0, max(psth1.times.rescale('ms').magnitude))
+
+# Spike counts per trial
+plt.subplot2grid((num_row,num_col),(0, 3), rowspan=1, colspan=1)
+plt.plot([len(st) for st in data1],range(1, len(data1)+1), '.-', ms=5, color='k')
+plt.title('Spike Count')
+plt.subplot2grid((num_row,num_col),(1, 3), rowspan=1, colspan=1)
+plt.plot([len(st) for st in data2],range(1,len(data2)+1), '.-', ms=5, color='g')
+
+# ISI distribution
+plt.subplot2grid((num_row,num_col),(2, 3), rowspan = 2, colspan = 1)
+plt.plot(ISIpdf1.times,ISIpdf1,color = 'k')
+plt.plot(ISIpdf2.times,ISIpdf2,color = 'g')
+plt.yscale('log')
+plt.ylim(1e-4, 0.1)
+plt.xlim(0, 20)
+plt.title('ISI distribution')
+
+plt.show()
+\end{lstlisting}%
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        
+
+        NameErrorTraceback (most recent call last)
+
+        <ipython-input-11-01d3e12d994b> in <module>()
+          1 \# Set figure
+    ----> 2 plt.figure(figsize=(12,8))
+          3 plt.subplots\_adjust(top=.85, right=.85, left=.2, bottom=.1, hspace=.7 , wspace=.3)
+          4 num\_row,num\_col = 3, 4
+          5 
+
+
+        NameError: name 'plt' is not defined
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+%\bibliographystyle{ieetran}
+%\bibliography{Thesis}
+
+    
+    
