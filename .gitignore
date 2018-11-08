@@ -6,3 +6,8 @@ __pycache__/
 */.git*
 */.gitignore
 *.pyc
+
+*/.ipynb_checkpoints/
+
+session11_Tensorflow/MNIST_data/
+session11_Tensorflow/*.slides.html
