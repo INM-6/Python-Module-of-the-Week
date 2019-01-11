@@ -4,6 +4,7 @@ For the kaggle kernels, ou can just press fork and adapt them to your liking and
 [How does a convolutional network work?](https://www.youtube.com/watch?v=f0t-OCG79-U])
 ### What is a Resetn/Densenet
 [Resnet](https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035)
+
 [Densenet](https://towardsdatascience.com/densenet-2810936aeebb)
 ### Concept based on Histopathological cancer detection
 [Kaggle Kernel: Basic transferlearning with Densenet deep lerning architecture](https://www.kaggle.com/guntherthepenguin/fastai-v1-densenet169)
