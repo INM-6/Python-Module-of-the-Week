@@ -1,15 +1,12 @@
 # Links for the things I presented today:
 ### How does a convolutional network work?
-(How does a convolutional network work?)[https://www.youtube.com/watch?v=f0t-OCG79-U]
+[How does a convolutional network work?](https://www.youtube.com/watch?v=f0t-OCG79-U])
 ### What is a Resetn/Densenet
-https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035
-
-https://towardsdatascience.com/densenet-2810936aeebb
-
+[Resnet](https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035)
+[Densenet](https://towardsdatascience.com/densenet-2810936aeebb)
+### Concept based on Histopathological cancer detection
 [Basic transferlearning with Densenet deep lerning architecture](https://www.kaggle.com/guntherthepenguin/fastai-v1-densenet169)
-
-[Image augmentations: what the do and how to optimize them using hyperopt](https://www.kaggle.com/guntherthepenguin/fast-ai-
-optimizing-augmentations)
+[Image augmentations: what the do and how to optimize them using hyperopt](https://www.kaggle.com/guntherthepenguin/fast-ai-optimizing-augmentations)
 
 ## group equivariate CNNs
 
