@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Justin Finnerty" />
+  <meta name="dcterms.date" content="2019-02-15" />
+  <title>Backing Up 2019</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="document.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Backing Up 2019</h1>
+<p class="author">Justin Finnerty</p>
+<p class="date">2019-02-15</p>
+</header>
+<h1 id="my-harddrive-broke-and-all-my-work-is-gone.-i-should-have-made-some-backups..">My harddrive broke and all my work is gone. I should have made some backups..</h1>
+<h2 id="what-is-the-purpose-of-a-backup-1">What is the purpose of a backup?</h2>
+<ul>
+<li>Safety</li>
+<li>Versioning</li>
+<li>Definitive location</li>
+</ul>
+<h2 id="what-is-a-definitive-location-1">What is a definitive location?</h2>
+<h2 id="what-type-of-backup">What type of backup?</h2>
+<h3 id="archive">Archive</h3>
+<ul>
+<li>Multiple versions of files kept.</li>
+<li>Able to return to an earlier version.</li>
+<li>Requires more disk space.</li>
+</ul>
+<h3 id="backup">Backup</h3>
+<ul>
+<li>Stores a copy of content at a given point.</li>
+<li>Requires only as much disk space as the original.</li>
+</ul>
+<h2 id="where-to-backup">Where to backup?</h2>
+<ul>
+<li><p>Convenience versus security</p></li>
+<li>External disk
+<ul>
+<li>Have to attach and activate software</li>
+<li>Same location as laptop</li>
+<li>Acts as mirror</li>
+</ul></li>
+<li>Backup server
+<ul>
+<li>Have to be connected to a network</li>
+<li>Different location to laptop</li>
+<li>Server backed by RAID storage</li>
+</ul></li>
+</ul>
+<h2 id="how-often-to-backup">How often to backup?</h2>
+<ul>
+<li>For an archive
+<ul>
+<li>How often do you want to save a new version?</li>
+</ul></li>
+<li>For a backup
+<ul>
+<li>How often do you want to save the current version?</li>
+</ul></li>
+</ul>
+<h1 id="how-to-backup">How To Backup</h1>
+<h2 id="what-to-back-up">What to back-up</h2>
+<h2 id="laptop-meta-data.">Laptop Meta-data.</h2>
+<pre><code>    dpkg --get-selections &gt; ~/installed/installed.txt
+    sudo cp -R /etc/apt/sources.list* ~/installed/
+    sudo apt-key exportall &gt; ~/installed/repo.keys
+    sudo chown -R finnerty:finnerty ~/installed</code></pre>
+<h2 id="directory-organisation">Directory organisation</h2>
+<ul>
+<li>Separate what to back up.</li>
+</ul>
+<h2 id="example-1">Example 1</h2>
+<ul>
+<li>bin</li>
+<li>Desktop (empty)</li>
+<li>Downloads</li>
+<li>Documents</li>
+<li>data</li>
+<li>installed</li>
+<li>mounts
+<ul>
+<li>webdav (etc.)</li>
+</ul></li>
+<li>ownCloud
+<ul>
+<li><strong>DocumentCloud</strong>
+<ul>
+<li><strong>own-folder-1</strong></li>
+<li><strong>own-folder-2</strong></li>
+</ul></li>
+<li>shared-folder-1</li>
+<li>shared-folder-2</li>
+</ul></li>
+<li>repositories</li>
+<li>src</li>
+<li>vaults</li>
+<li>virtual-machines</li>
+</ul>
+<h2 id="example-2">Example 2</h2>
+<ul>
+<li>Projects
+<ul>
+<li>project-1
+<ul>
+<li>repositories</li>
+<li>data</li>
+<li><strong>documents</strong></li>
+</ul></li>
+<li>project-2
+<ul>
+<li>repositories</li>
+<li>data</li>
+<li><strong>documents</strong></li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="back-in-time">back-in-time</h1>
+<h2 id="main-interface">Main Interface</h2>
+<figure>
+<img src="b-i-t.png" alt="back-in-time application" /><figcaption>back-in-time application</figcaption>
+</figure>
+<h2 id="general-settings">General settings</h2>
+<figure>
+<img src="b-i-t-general.png" alt="back-in-time General Settings Tab" /><figcaption>back-in-time General Settings Tab</figcaption>
+</figure>
+<h2 id="schedule-your-back-up">Schedule your back up</h2>
+<figure>
+<img src="b-i-t-general-sched.png" alt="back-in-time General Settings Tab" /><figcaption>back-in-time General Settings Tab</figcaption>
+</figure>
+<h2 id="what-to-include">What to include</h2>
+<figure>
+<img src="b-i-t-include.png" alt="back-in-time Include Settings Tab" /><figcaption>back-in-time Include Settings Tab</figcaption>
+</figure>
+<h2 id="what-to-exclude">What to exclude</h2>
+<figure>
+<img src="b-i-t-exclude.png" alt="back-in-time Exclude Settings Tab" /><figcaption>back-in-time Exclude Settings Tab</figcaption>
+</figure>
+<h2 id="how-to-set-up-archive">How to set up archive</h2>
+<figure>
+<img src="b-i-t-remove.png" alt="back-in-time Auto-Remove Settings Tab" /><figcaption>back-in-time Auto-Remove Settings Tab</figcaption>
+</figure>
+<h2 id="more-details">More details</h2>
+<figure>
+<img src="b-i-t-options.png" alt="back-in-time Options Settings Tab" /><figcaption>back-in-time Options Settings Tab</figcaption>
+</figure>
+<h2 id="even-more-details">Even more details</h2>
+<figure>
+<img src="b-i-t-expert.png" alt="back-in-time Expert Options Settings Tab" /><figcaption>back-in-time Expert Options Settings Tab</figcaption>
+</figure>
+</body>
+</html>
