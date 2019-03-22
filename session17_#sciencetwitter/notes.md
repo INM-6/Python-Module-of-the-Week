@@ -21,7 +21,6 @@ refers generally to all the science related talk going on on Twitter. Especially
   * [paper suggestions](https://twitter.com/virginie_vw/status/1100308455540314113)
   * [preprint bots](https://twitter.com/wouter_decoster/status/1008626150007103488)
   * [science facts](https://twitter.com/danilobzdok/status/1072552190965886977)
-  * [ducks in mathematics](https://twitter.com/cbredesen/status/1101560334287032322)
   * [deep discussions](https://twitter.com/KordingLab/status/1099820350370652161)
   * [software news](https://twitter.com/ProjectJupyter/status/1076550252398764032)
   * [live tweets of defences/conferencs](https://twitter.com/eglerean/status/1101424999989161984)
@@ -35,6 +34,7 @@ refers generally to all the science related talk going on on Twitter. Especially
   * [nihilist data scientist](https://twitter.com/nihilist_ds/status/957979603703709696)
   * [stats as cats](https://twitter.com/hashtag/statsAscats)
   * [my cousin amygdala](https://twitter.com/CousinAmygdala)
+  * [math ducks](https://twitter.com/cbredesen/status/1101560334287032322)
   * [DanceYourPhD](https://twitter.com/MissHisey/status/1103679627967561729)
   * [dank AI memes](https://twitter.com/ai_memes)
 
@@ -58,4 +58,4 @@ All the time from 5:45 to 00:30.
 
 If this is too overwhelming, [here](https://onervakorhonen.wordpress.com/2019/03/12/5-2-tips-for-the-braintc/) is a subjective recommendation for 7 promising talks, by one of the organizers.
 
-And at 18:30 @rgutzen will present ["How much do you trust a model? - Rigor in neuroscientific modeling and simulation through validation"](insert link here)
+And at 18:30 @rgutzen will present ["How much do you trust a model? - Rigor in neuroscientific modeling and simulation through validation"](https://twitter.com/RealBrainTC/status/1106246154138853376)
