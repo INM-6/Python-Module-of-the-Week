@@ -1,0 +1,19 @@
+
+---
+title: 'Making your life easier and more secure when working remotely'
+subtitle: 'Python Module of the Week'
+author:
+- Dennis Terhorst
+institute:
+- "INM-6, Forschungszentrum Jülich"
+logos-left:
+- logo/NEST/nest
+logos-right:
+- logo/NEST/nest-initiative
+logospace: .25
+license: GPLv2+
+tags: [HBP, WP7.3]
+date: '26 April 2019'
+geometry: left=3cm,right=3cm
+---
+

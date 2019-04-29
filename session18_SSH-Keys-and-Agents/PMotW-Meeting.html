@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Dennis Terhorst" />
+  <meta name="dcterms.date" content="2019-04-26" />
+  <title>Making your life easier and more secure when working remotely</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="document.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Making your life easier and more secure when working remotely</h1>
+<p class="subtitle">Python Module of the Week</p>
+<p class="author">Dennis Terhorst</p>
+<p class="date">26 April 2019</p>
+</header>
+<h1 id="overview">Overview</h1>
+<h2 id="topics">Topics</h2>
+<ul>
+<li>General considerations</li>
+<li>SSH keys &amp; agents</li>
+<li>.ssh/config</li>
+<li>Usage examples</li>
+</ul>
+<h2 id="general-considerations">General considerations</h2>
+<ul>
+<li><img src="lock.jpg" class="right" style="width:20.0%" />Trust-model using keys:<br>– access is granted to whoever has the key</li>
+<li>Keys are generated as <em>key-pair</em>, one is used to crypt and one de-crypt data</li>
+<li>you can have as many keys as you want</li>
+</ul>
+<h1 id="ssh-keys-agents">SSH keys &amp; agents</h1>
+<h2 id="generate-a-key">Generate a key</h2>
+<pre><code>ssh-keygen -b 4096 -C &quot;y.name@fz-juelich.de&quot;</code></pre>
+<ul>
+<li><code>-t</code> specifies the type of the key (default: rsa)</li>
+<li><code>-b</code> gives the nuber of bits (default 2048)</li>
+<li><code>-C</code> gives a useful identifier in the comment field (default <code>$USER@$HOST</code>)</li>
+</ul>
+<div class="incremental">
+<ul>
+<li><img src="warning.svg" class="right" height="130" /> <strong>never</strong> create a key without a password</li>
+<li>give a useful filename, e.g. the identifier</li>
+<li>protect your private key!</li>
+</ul>
+</div>
+<div class="incremental">
+<p>This will produce two files, for example</p>
+<ul>
+<li><code>y.name@fz-juelich</code></li>
+<li><code>y.name@fz-juelich.pub</code></li>
+</ul>
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQAB...Da9V08Ew== y.name@fz-juelich.de</code></pre>
+</div>
+<h2 id="using-a-key">Using a key</h2>
+<p>Add your public key to the file <code>~/.ssh/authorized_keys</code> on the destination machine</p>
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQAB...Da9V08Ew== y.name@fz-juelich.de</code></pre>
+<p>Then use your private key to log into the machine (<code>man ssh</code>)</p>
+<pre><code>ssh -i y.name@fz-juelich  y.name@login.inm.kfa-juelich.de</code></pre>
+<div class="incremental">
+<h3 id="note">Note</h3>
+<ul>
+<li>The password you give is the <em>password of the key</em> not of the target machine</li>
+<li>The private key is never transfered, the password is processed only <em>locally</em></li>
+</ul>
+</div>
+<h2 id="the-ssh-agent">The SSH Agent</h2>
+<p>When frequently accessing a system it may be impractical to re-type the potentially longisch key password for each connection, esp. when connecting to other hosts in scripts.</p>
+<h2 id="start-the-agent">Start the agent</h2>
+<p>NOTE: This is not necessary if the gnome-keyring is available!</p>
+<p><em>wrong</em></p>
+<pre><code>$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-hHmOg2ChTmr4/agent.31758; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=31759; export SSH_AGENT_PID;
+echo Agent pid 31759;</code></pre>
+<p><em>right</em></p>
+<pre><code>$ eval $(ssh-agent)</code></pre>
+<h2 id="using-the-agent">Using the agent</h2>
+<ul>
+<li>if <code>$SSH_AUTH_SOCKET</code> is in your environment, the agent will be used</li>
+</ul>
+<pre><code>ssh  y.name@login.inm.kfa-juelich.de</code></pre>
+<div class="incremental">
+<ul>
+<li>if you need to do more ssh connections on the remote side, you can
+<ol type="1">
+<li><p>tell <code>ssh</code> to “forward the ssh-agent socket” to the remote side</p>
+<pre><code>ssh -A  y.name@login.inm.kfa-juelich.de</code></pre>
+or configure <code>ForwardAgent yes</code> (see next section)</li>
+<li><p>copy your encrypted private key to the intermediate machine</p></li>
+</ol></li>
+</ul>
+</div>
+<h1 id="make-your-life-easier-.sshconfig">Make your life easier:<br><code>.ssh/config</code></h1>
+<h2 id="the-problem">The problem</h2>
+<p>Even with the SSH agents lines can become annoying to re-type/remember</p>
+<ul>
+<li>which key for which host</li>
+<li>different required options</li>
+<li>different usernames</li>
+<li>…</li>
+</ul>
+<pre><code>ssh -X -o ForwardAgent=yes  y.name@login.inm.kfa-juelich.de
+ssh -o TCPKeepAlive=yes  yname1@jureca.fz-juelich.de
+...</code></pre>
+<h2 id="basic-config">Basic config</h2>
+<p>Create/edit your <code>~/.ssh/config</code> (<code>man ssh_config</code>):</p>
+<pre><code>Host login
+    Hostname login.inm.kfa-juelich.de
+    User y.name
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/y.name@fz-juelich</code></pre>
+<div class="incremental">
+<p>This lets you do</p>
+<pre><code>ssh login</code></pre>
+<p>which is then equivalent to</p>
+<pre><code>ssh -i ~/.ssh/y.name@fz-juelich -o IdentitiesOnly=yes \ y.name@login.inm.kfa-juelich.de</code></pre>
+</div>
+<h1 id="usage-examples">Usage examples</h1>
+<h2 id="clusterhpc">cluster/HPC</h2>
+<pre><code>Host hambach
+    HostName hambach.inm.kfa-juelich.de
+    User terhorst
+    IdentityFile ~/.ssh/y.name@fz-juelich
+    IdentitiesOnly yes
+
+Host jureca
+    HostName jureca.fz-juelich.de
+    User jinb3326
+    KbdInteractiveAuthentication no
+    IdentityFile ~/.ssh/my-global-key
+    IdentitiesOnly yes</code></pre>
+<h2 id="gittygithub">gitty/Github</h2>
+<h3 id="gitty">gitty</h3>
+<pre><code>Host gitty
+    Hostname gitty.inm.kfa-juelich.de
+    User git
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/y.name@fz-juelich</code></pre>
+<p>then run <code>ssh gitty</code></p>
+<h3 id="github">Github</h3>
+<p>Go to your <a href="https://github.com/settings/keys">github settings page</a> “SSH and GPG keys” and add your public key</p>
+<h3 id="cloning-repositories">cloning repositories</h3>
+<pre><code>git clone gitty:csn_toolbox
+git clone github:INM-6/equipment-overview</code></pre>
+<h2 id="sshfs-vs.-rsync">sshfs vs. rsync</h2>
+<h3 id="sync-remote-files">Sync remote files</h3>
+<p>Using the agent and ssh-config things become very easy:</p>
+<pre><code>ssh login
+date &gt;somefile
+rsync -avi login:somefile .</code></pre>
+<h3 id="using-sshfs">Using <code>sshfs</code></h3>
+<pre><code>mkdir remote
+sshfs login: remote
+ls remote
+fusermount -u remote</code></pre>
+<div class="incremental">
+<h4 id="note-1">NOTE</h4>
+<p>With sshfs processes still run locally! Only files are transfered! Huge difference in speed and responsiveness</p>
+</div>
+<h1 id="finally">Finally</h1>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>no additional software/aliasses/scripts required</li>
+<li>things become much easier and safer</li>
+</ul>
+<h4 id="discuss">→ Discuss!</h4>
+<h3 id="not-covered">Not covered</h3>
+<ul>
+<li>different users on same host</li>
+<li>Control channels</li>
+<li>Connection forwarding</li>
+</ul>
+<h1 id="thanks">Thanks!</h1>
+</body>
+</html>

@@ -1,0 +1,120 @@
+import os
+import fnmatch
+
+configfile: 'config.yaml'
+
+basedir = os.getcwd()
+#templatedir = os.path.join(basedir, "templates")
+
+# --data-dir=<DIRECTORY>
+#     Specify the user data directory to search for pandoc data files. If this
+#     option is not specified, the default user data directory will be used.
+#     This is, in UNIX: $HOME/.pandoc [... in Windows, ...].
+#     You can find the default user data directory on your
+#     system by looking at the output of pandoc --version. A
+#     reference.odt, reference.docx, epub.css, templates,       <<< !!!
+#     slidy, slideous, or s5 directory placed in this
+#     directory will override pandoc’s normal defaults.
+commonargs = '--standalone --data-dir="%s"' % basedir
+
+srcfmt = "+".join([config['srcfmt']] + config['extensions'])
+
+metadata = []
+if 'yaml_metadata_block' in config['extensions']:
+    metadata.append('metadata.yaml')
+
+#extractabstractsoutput =  '10-Abstracts.md'
+#if not extractabstractsoutput in inputfiles:
+#    inputfiles.append(extractabstractsoutput)
+
+MeetingFiles = [os.path.splitext(n)[0] for n in sorted(fnmatch.filter(os.listdir(basedir), "*Meeting.md"))]
+MinutesFiles = [os.path.splitext(n)[0] for n in sorted(fnmatch.filter(os.listdir(basedir), "*Minutes.md"))]
+
+rule done:
+    input:
+        expand("{meeting}-presentation.html", meeting = MeetingFiles),
+        expand("{meeting}.pdf", meeting = MeetingFiles),
+        expand("{minutes}.pdf", minutes = MinutesFiles),
+
+rule build_html:
+    input:
+        document = '{name}.md',
+        material = config['include_materials'],
+        metadata = metadata,
+    params:
+        css='document.css',
+    output:
+        '{name,.*(?<!-presentation)}.html',
+    shell:
+        '''
+        pandoc {commonargs} -f {srcfmt} -t html {input.document} {input.metadata} --css {params.css} -o {output}
+        '''
+
+rule build_pdfdocument:
+    input:
+        document = '{name}.md',
+        material = config['include_materials'],
+        metadata = metadata,
+    output:
+        '{name,.*(?<!-presentation)}.pdf'
+    shell:
+        '''
+        pandoc {commonargs} -f {srcfmt} -t latex {input.document} {input.metadata} -o {output}
+        '''
+
+rule build_htmlpdfdocument:
+    input:
+        document = '{name}.html',
+        material = config['include_materials'],
+    output:
+        '{name,.*(?<!-presentation)}.pdf'
+    shell:
+        '''
+        wkhtmltopdf --enable-local-file-access {input.document} {output} || true
+        '''
+
+ruleorder: build_htmlpdfdocument > build_pdfdocument
+
+rule build_reveal:
+    input:
+        document = '{name}.md',
+        metadata = metadata,
+        material = config['include_materials'],
+        config = "reveal.config",
+        reveal = "reveal.js/",
+    params:
+        slidelevel=2,
+    output:
+        '{name}-presentation.html'
+    shell:
+        '''
+        pandoc {commonargs} -f {srcfmt} -t revealjs --slide-level={params.slidelevel} {input.config} {input.document} {input.metadata} -o {output}
+        '''
+
+rule download_revealjs:
+    output:
+        'reveal.js/',
+    shell:
+        '''
+        git clone https://github.com/hakimel/reveal.js
+        '''
+
+rule clean:
+    params:
+        files=config['build_targets'],
+    shell:
+        '''
+        rm -vf {params.files}
+        '''
+
+
+rule graphviz:
+    input:
+        '{name}.dot',
+    output:
+        '{name}.{format,svg|png}',
+    shell:
+        '''
+        neato -T{wildcards.format} {input} >{output}
+        '''
+

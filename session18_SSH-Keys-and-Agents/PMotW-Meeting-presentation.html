@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dennis Terhorst">
+  <meta name="dcterms.date" content="2019-04-26">
+  <title>Making your life easier and more secure when working remotely</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/../../../slides.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Making your life easier and more secure when working remotely</h1>
+  <p class="subtitle">Python Module of the Week</p>
+  <p class="author">Dennis Terhorst</p>
+  <p class="date">26 April 2019</p>
+</section>
+
+<section><section id="overview" class="title-slide slide level1"><h1>Overview</h1></section><section id="topics" class="slide level2">
+<h2>Topics</h2>
+<ul>
+<li>General considerations</li>
+<li>SSH keys &amp; agents</li>
+<li>.ssh/config</li>
+<li>Usage examples</li>
+</ul>
+</section><section id="general-considerations" class="slide level2">
+<h2>General considerations</h2>
+<ul>
+<li><img data-src="lock.jpg" class="right" style="width:20.0%" />Trust-model using keys:<br>– access is granted to whoever has the key</li>
+<li>Keys are generated as <em>key-pair</em>, one is used to crypt and one de-crypt data</li>
+<li>you can have as many keys as you want</li>
+</ul>
+</section></section>
+<section><section id="ssh-keys-agents" class="title-slide slide level1"><h1>SSH keys &amp; agents</h1></section><section id="generate-a-key" class="slide level2">
+<h2>Generate a key</h2>
+<pre><code>ssh-keygen -b 4096 -C &quot;y.name@fz-juelich.de&quot;</code></pre>
+<ul>
+<li><code>-t</code> specifies the type of the key (default: rsa)</li>
+<li><code>-b</code> gives the nuber of bits (default 2048)</li>
+<li><code>-C</code> gives a useful identifier in the comment field (default <code>$USER@$HOST</code>)</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><img data-src="warning.svg" class="right" height="130" /> <strong>never</strong> create a key without a password</li>
+<li>give a useful filename, e.g. the identifier</li>
+<li>protect your private key!</li>
+</ul>
+</div>
+<div class="fragment">
+<p>This will produce two files, for example</p>
+<ul>
+<li><code>y.name@fz-juelich</code></li>
+<li><code>y.name@fz-juelich.pub</code></li>
+</ul>
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQAB...Da9V08Ew== y.name@fz-juelich.de</code></pre>
+</div>
+</section><section id="using-a-key" class="slide level2">
+<h2>Using a key</h2>
+<p>Add your public key to the file <code>~/.ssh/authorized_keys</code> on the destination machine</p>
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQAB...Da9V08Ew== y.name@fz-juelich.de</code></pre>
+<p>Then use your private key to log into the machine (<code>man ssh</code>)</p>
+<pre><code>ssh -i y.name@fz-juelich  y.name@login.inm.kfa-juelich.de</code></pre>
+<div class="fragment">
+<h3 id="note">Note</h3>
+<ul>
+<li>The password you give is the <em>password of the key</em> not of the target machine</li>
+<li>The private key is never transfered, the password is processed only <em>locally</em></li>
+</ul>
+</div>
+</section><section id="the-ssh-agent" class="slide level2">
+<h2>The SSH Agent</h2>
+<p>When frequently accessing a system it may be impractical to re-type the potentially longisch key password for each connection, esp. when connecting to other hosts in scripts.</p>
+</section><section id="start-the-agent" class="slide level2">
+<h2>Start the agent</h2>
+<p>NOTE: This is not necessary if the gnome-keyring is available!</p>
+<p><em>wrong</em></p>
+<pre><code>$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-hHmOg2ChTmr4/agent.31758; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=31759; export SSH_AGENT_PID;
+echo Agent pid 31759;</code></pre>
+<p><em>right</em></p>
+<pre><code>$ eval $(ssh-agent)</code></pre>
+</section><section id="using-the-agent" class="slide level2">
+<h2>Using the agent</h2>
+<ul>
+<li>if <code>$SSH_AUTH_SOCKET</code> is in your environment, the agent will be used</li>
+</ul>
+<pre><code>ssh  y.name@login.inm.kfa-juelich.de</code></pre>
+<div class="fragment">
+<ul>
+<li>if you need to do more ssh connections on the remote side, you can
+<ol type="1">
+<li><p>tell <code>ssh</code> to “forward the ssh-agent socket” to the remote side</p>
+<pre><code>ssh -A  y.name@login.inm.kfa-juelich.de</code></pre>
+or configure <code>ForwardAgent yes</code> (see next section)</li>
+<li><p>copy your encrypted private key to the intermediate machine</p></li>
+</ol></li>
+</ul>
+</div>
+</section></section>
+<section><section id="make-your-life-easier-.sshconfig" class="title-slide slide level1"><h1>Make your life easier:<br><code>.ssh/config</code></h1></section><section id="the-problem" class="slide level2">
+<h2>The problem</h2>
+<p>Even with the SSH agents lines can become annoying to re-type/remember</p>
+<ul>
+<li>which key for which host</li>
+<li>different required options</li>
+<li>different usernames</li>
+<li>…</li>
+</ul>
+<pre><code>ssh -X -o ForwardAgent=yes  y.name@login.inm.kfa-juelich.de
+ssh -o TCPKeepAlive=yes  yname1@jureca.fz-juelich.de
+...</code></pre>
+</section><section id="basic-config" class="slide level2">
+<h2>Basic config</h2>
+<p>Create/edit your <code>~/.ssh/config</code> (<code>man ssh_config</code>):</p>
+<pre><code>Host login
+    Hostname login.inm.kfa-juelich.de
+    User y.name
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/y.name@fz-juelich</code></pre>
+<div class="fragment">
+<p>This lets you do</p>
+<pre><code>ssh login</code></pre>
+<p>which is then equivalent to</p>
+<pre><code>ssh -i ~/.ssh/y.name@fz-juelich -o IdentitiesOnly=yes \ y.name@login.inm.kfa-juelich.de</code></pre>
+</div>
+</section></section>
+<section><section id="usage-examples" class="title-slide slide level1"><h1>Usage examples</h1></section><section id="clusterhpc" class="slide level2">
+<h2>cluster/HPC</h2>
+<pre><code>Host hambach
+    HostName hambach.inm.kfa-juelich.de
+    User terhorst
+    IdentityFile ~/.ssh/y.name@fz-juelich
+    IdentitiesOnly yes
+
+Host jureca
+    HostName jureca.fz-juelich.de
+    User jinb3326
+    KbdInteractiveAuthentication no
+    IdentityFile ~/.ssh/my-global-key
+    IdentitiesOnly yes</code></pre>
+</section><section id="gittygithub" class="slide level2">
+<h2>gitty/Github</h2>
+<h3 id="gitty">gitty</h3>
+<pre><code>Host gitty
+    Hostname gitty.inm.kfa-juelich.de
+    User git
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/y.name@fz-juelich</code></pre>
+<p>then run <code>ssh gitty</code></p>
+<h3 id="github">Github</h3>
+<p>Go to your <a href="https://github.com/settings/keys">github settings page</a> “SSH and GPG keys” and add your public key</p>
+<h3 id="cloning-repositories">cloning repositories</h3>
+<pre><code>git clone gitty:csn_toolbox
+git clone github:INM-6/equipment-overview</code></pre>
+</section><section id="sshfs-vs.-rsync" class="slide level2">
+<h2>sshfs vs. rsync</h2>
+<h3 id="sync-remote-files">Sync remote files</h3>
+<p>Using the agent and ssh-config things become very easy:</p>
+<pre><code>ssh login
+date &gt;somefile
+rsync -avi login:somefile .</code></pre>
+<h3 id="using-sshfs">Using <code>sshfs</code></h3>
+<pre><code>mkdir remote
+sshfs login: remote
+ls remote
+fusermount -u remote</code></pre>
+<div class="fragment">
+<h4 id="note-1">NOTE</h4>
+<p>With sshfs processes still run locally! Only files are transfered! Huge difference in speed and responsiveness</p>
+</div>
+</section></section>
+<section><section id="finally" class="title-slide slide level1"><h1>Finally</h1></section><section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li>no additional software/aliasses/scripts required</li>
+<li>things become much easier and safer</li>
+</ul>
+<h4 id="discuss">→ Discuss!</h4>
+<h3 id="not-covered">Not covered</h3>
+<ul>
+<li>different users on same host</li>
+<li>Control channels</li>
+<li>Connection forwarding</li>
+</ul>
+</section></section>
+<section id="thanks" class="title-slide slide level1"><h1>Thanks!</h1></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

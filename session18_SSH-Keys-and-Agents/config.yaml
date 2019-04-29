@@ -1,0 +1,19 @@
+
+# inputfiles are defined in the snakefile ("*.md" files in sorted order)
+
+# indirect dependencies, e.g. images included by the document
+include_materials: []
+
+build_targets:
+- presentation.html
+- webpage.html
+#- paper.pdf
+
+srcfmt: markdown
+extensions:
+- link_attributes
+- implicit_figures
+- yaml_metadata_block
+- pandoc_title_block
+- tex_math_dollars
+- definition_lists
