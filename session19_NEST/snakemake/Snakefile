@@ -1,0 +1,27 @@
+# sample parameter range for testing
+G = [2, 5]
+NU_EX = [2]
+
+# full parameter range for phase diagram
+# G = [x*1.0 for x in range(9)]
+# NU_EX = [x*0.5 for x in range(9)]
+
+
+rule all:
+    input:
+        'phase_diagram.png'
+
+rule simulateNetwork:
+    output:
+        'data/spikes_{g}_{nu_ex}.npy',
+        'figures/raster_{g}_{nu_ex}.png'
+    shell:
+        'python3 scripts/simulateBrunel.py {output} {wildcards.g} {wildcards.nu_ex}'
+
+rule plotPhaseDiagram:
+    input:
+        expand('data/spikes_{g}_{nu_ex}.npy', g=G, nu_ex=NU_EX)
+    output:
+        'phase_diagram.png'
+    shell:
+        'python3 scripts/plotPhaseDiagram.py {input} {output}'
