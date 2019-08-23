@@ -1,11 +1,14 @@
 # GitHub Pull Requests & Code Review
 
 Mostly based on this awesome gist by [Chaser324](https://github.com/Chaser324): https://gist.github.com/Chaser324/ce0505fbed06b947d962
+
 For NEST, the development workflow is explained here: http://nest.github.io/nest-simulator/development_workflow#basic-workflow
 
 ## Hands-on
 
 Below, I outline the steps in an abstract manner. For the details, i.e. git comands, see one of the above references.
+
+To provide a safe playgorund, I created a dummy upstream repository: https://github.com/AlexVanMeegen/PyMotW_pullrequests
 
 ### Preparation
 
@@ -23,17 +26,18 @@ upstream	git://github.com/AlexVanMeegen/PyMotW_pullrequests.git (push)
 
 ### Doing the work
 
-* Fetch upstream to make sure that your local master branch is up to date
-* Create a feature branch in your local repository
+* Fetch from upstream and merge into your local master branch to make sure it is up to date
+* Create a feature branch (branching off master) in your local repository
+* Change to your feature branch
 * 'Now, go to town hacking away and making whatever changes you want to'
-* Commit all changes to your local repository
+* Commit all changes to your feature branch
 
 ### Pull request
 
-* Fetch upstream to get potential changes in upstream/master
-* Rebase on the current master branch (if you feel unsure create a temporary branch as a backup)
-* Push to the forked repository
-* Create pull request against upstream/master
+* Fetch upstream & merge into your local master branch to get potential changes in upstream/master
+* Rebase on the up-to-date master branch (if you feel unsure create a temporary branch as a backup)
+* Push the feature branch to your fork
+* Create pull request from the feature branch of your fork against upstream/master
 
 ### Review pull requests
 
