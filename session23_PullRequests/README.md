@@ -43,3 +43,7 @@ upstream	git://github.com/AlexVanMeegen/PyMotW_pullrequests.git (push)
 
 * Just play around with GitHub's [pull request review functionality](https://help.github.com/en/articles/about-pull-request-reviews)
 * If you feel fancy, [check out the proposed changes locally](https://gist.github.com/Chaser324/ce0505fbed06b947d962#checking-out-and-testing-pull-requests)
+
+### Interactive demo.
+
+Learn git branching by playing a game: https://learngitbranching.js.org
