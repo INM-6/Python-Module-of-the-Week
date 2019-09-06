@@ -56,4 +56,7 @@ Do you think about time management? If yes, how much? If no, consciously not?
 ## References
 
 * [JAY-Z (2004) 99 Problems](https://www.youtube.com/watch?v=6uikJTnmtgw)
-*
+* [Bullet journal](https://www.youtube.com/watch?v=fm15cmYU0IM)
+* [Lecture on procrastination](https://www.youtube.com/watch?v=mhFQA998WiA)
+* [Jung personality test](https://similarminds.com/classic_jung.html)
+* [Uni of Saskatchewan - INTJ](https://students.usask.ca/documents/secc/INTJ.pdf)
