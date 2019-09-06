@@ -60,3 +60,4 @@ Do you think about time management? If yes, how much? If no, consciously not?
 * [Lecture on procrastination](https://www.youtube.com/watch?v=mhFQA998WiA)
 * [Jung personality test](https://similarminds.com/classic_jung.html)
 * [Uni of Saskatchewan - INTJ](https://students.usask.ca/documents/secc/INTJ.pdf)
+* [Keyboard shortcuts](https://islascruz.org/blog/wp-content/uploads/2019/08/IMG_4419.jpg)
