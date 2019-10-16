@@ -46,11 +46,12 @@ Do you think about time management? If yes, how much? If no, consciously not?
   * bulletjournal
   * pomodoro timer
   * emacs orgmode
-  * todo.txt
+  * [todo.txt](https://github.com/todotxt/todo.txt)
+    Google "todo.txt" [favourite GUI/(mobile)OS/editor] to find software using the format
   * notion
   * trello (in combination with calendar)
   * toggl
-  * pocket; wallabag.it
+  * pocket; [wallabag.it](https://www.wallabag.it) ([self-hosted version](https://wallabag.org))
   * keyboard shortcuts
 
 ## References
