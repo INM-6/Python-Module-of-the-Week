@@ -1,0 +1,10 @@
+name: pymotw_odd
+channels:
+  - defaults
+dependencies:
+  - matplotlib
+  - numpy
+  - pip
+  - pytest
+  - python=3.7
+

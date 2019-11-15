@@ -3,6 +3,10 @@
 ## Install
 
 * get code: `git submodule update`
+* optional: create conda environment
+  * `conda env create -f pymotw_odd.yml`
+  * `conda activate pymotw_odd`
+* install potions package: `pip install -e ASPP-2019-ODD/`
 
 ## Acknowledgement
 
