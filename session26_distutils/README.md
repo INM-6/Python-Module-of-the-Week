@@ -2,7 +2,7 @@
 
 ## Install
 
-* get code: `git submodule update`
+* get code: `git submodule update --init`
 * optional: create conda environment
   * `conda env create -f pymotw_odd.yml`
   * `conda activate pymotw_odd`
