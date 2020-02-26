@@ -1,0 +1,30 @@
+
+---
+title: 'Unified Modeling Language'
+subtitle: 'Python Module of the Week'
+author:
+- Dennis Terhorst
+institute:
+- "INM-6, Forschungszentrum Jülich"
+logos-left:
+- logo/logoElephant
+- logo/logoINT
+logos-right:
+- logo/Logo-RWTH-eps-converted-to
+- logo/Logo-INM6-eps-converted-to
+logospace: .25
+license: GPLv2+
+tags: [PMotW, Python, UML, INM6]
+date: '2018-04-20'
+
+# for the epub format
+creator:
+- role: author
+  text: Dennis Terhorst
+- role: editor
+  text: Dennis Terhorst
+publisher: INM-6
+rights: (c) 2018 Dennis Terhorst, CC BY
+cover-image: video-test.gif
+---
+

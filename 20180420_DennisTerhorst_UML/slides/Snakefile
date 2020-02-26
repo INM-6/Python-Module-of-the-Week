@@ -1,0 +1,45 @@
+import os
+import fnmatch
+
+configfile: 'config.yaml'
+
+basedir = config.get('basedir') or os.getcwd()
+extensions = config['extensions']
+inputfiles = config['inputfiles']
+
+
+commonargs = '--standalone --smart --data-dir="%s"' % basedir
+srcfmt = "+".join(['markdown'] + extensions)
+
+if 'yaml_metadata_block' in extensions:
+    inputfiles.append('metadata.yaml')
+
+
+rule done:
+    input:
+        'slides.html',
+
+
+rule build_reveal:
+    input:
+        files=inputfiles,
+        config="reveal.config",
+        reveal="reveal.js/",
+    params:
+        slidelevel=2,
+    output:
+        'slides.html'
+    shell:
+        '''
+        pandoc {commonargs} -f {srcfmt} -t revealjs --slide-level={params.slidelevel} {input.config} {input.files} -o {output}
+        '''
+
+
+rule download_revealjs:
+    output:
+        'reveal.js/',
+    shell:
+        '''
+        git clone https://github.com/hakimel/reveal.js
+        '''
+

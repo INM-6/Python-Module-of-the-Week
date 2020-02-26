@@ -1,0 +1,10 @@
+
+extensions:
+- link_attributes
+- implicit_figures
+- yaml_metadata_block
+- pandoc_title_block
+- tex_math_dollars
+
+inputfiles:
+- slides.md

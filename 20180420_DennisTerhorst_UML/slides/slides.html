@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dennis Terhorst">
+  <meta name="dcterms.date" content="2018-04-20">
+  <title>Unified Modeling Language</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/../../../slides.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Unified Modeling Language</h1>
+  <p class="subtitle">Python Module of the Week</p>
+  <p class="author">Dennis Terhorst</p>
+  <p class="date">2018-04-20</p>
+</section>
+
+<section><section id="uml-standard" class="titleslide slide level1"><h1>UML Standard</h1></section><section id="standard-specification" class="slide level2">
+<h2>Standard / Specification</h2>
+<ul>
+<li>Definition by <em>Object Management Group</em> (OMG) (till 2005), now <em>International Organization for Standardization</em> (ISO)</li>
+<li><a href="https://www.omg.org/spec/UML">Specification documents</a>
+<ul>
+<li><a href="https://www.omg.org/spec/UML/2.5.1/PDF">UML/2.5.1/PDF</a></li>
+</ul></li>
+</ul>
+</section><section id="diagrams" class="slide level2">
+<h2>Diagrams</h2>
+<p>UML 2 defines categories</p>
+<figure>
+<img src="UML_diagrams_overview.svg.png" alt="These diagrams may all contain comments or notes explaining usage, constraint, or intent." /><figcaption>These diagrams may all contain comments or notes explaining usage, constraint, or intent.</figcaption>
+</figure>
+</section><section id="toc" class="slide level2">
+<h2>TOC</h2>
+<ol type="1">
+<li>Scope</li>
+<li>Conformance</li>
+<li>Normative References</li>
+<li>Terms and Definitions</li>
+<li>Notational Conventions</li>
+<li>Addtitional Information</li>
+</ol>
+</section><section id="toc-continued" class="slide level2">
+<h2>TOC (continued)</h2>
+<ol start="7" type="1">
+<li>Common Structure</li>
+<li>Values</li>
+<li>Classification</li>
+<li>Simple Classifiers</li>
+<li>Structured Classifiers</li>
+<li>Packages</li>
+<li>Common Behaviour</li>
+<li>State Machines</li>
+</ol>
+</section><section id="toc-continued-1" class="slide level2">
+<h2>TOC (continued)</h2>
+<ol start="15" type="1">
+<li>Activities</li>
+<li>Actions</li>
+<li>Interactions</li>
+<li>UseCases</li>
+<li>Deployments</li>
+<li>Information Flows</li>
+<li>Primitive Types</li>
+<li>Standard Profile</li>
+</ol>
+</section><section id="abstract-syntax" class="slide level2">
+<h2>Abstract Syntax</h2>
+<p><!-- ![image: [UML/2.5.1/PDF](https://www.omg.org/spec/UML/2.5.1/PDF)](UML-abstract-syntax.png){height=550} --></p>
+<figure>
+<img src="UML-class.png" height="530" />
+</figure>
+</section></section>
+<section><section id="examples-usage" class="titleslide slide level1"><h1>Examples / Usage</h1></section><section id="classes" class="slide level2">
+<h2>Classes</h2>
+<figure>
+<img src="UML-class.png" height="530" />
+</figure>
+</section><section id="inheritance" class="slide level2">
+<h2>Inheritance</h2>
+<figure>
+<img src="UML-inheritance.png" height="530" />
+</figure>
+</section><section id="dia" class="slide level2">
+<h2>Dia</h2>
+<figure>
+<img src="UML-dia.png" height="550" />
+</figure>
+</section></section>
+<section><section id="hands-on" class="titleslide slide level1"><h1>Hands-On</h1></section><section id="dia2code" class="slide level2">
+<h2>Dia2code</h2>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+              { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
