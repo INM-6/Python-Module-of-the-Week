@@ -1,0 +1,12 @@
+name: pymotw_numpy
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - scipy
+  - matplotlib
+  - pandas
+  - jupyter
+  - rise
+  - pip
+  - python=3.7
