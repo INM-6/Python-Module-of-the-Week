@@ -74,8 +74,8 @@
 
 
 ## Our Websites
-* [alexvanmegen.github.io](alexvanmegen.github.io)
-* [rgutzen.github.io](rgutzen.github.io)
+* [alexvanmegen.github.io](https://alexvanmegen.github.io)
+* [rgutzen.github.io](https://rgutzen.github.io)
 * [your website coming soon...](#)
 
 <!-- static/dymanic
