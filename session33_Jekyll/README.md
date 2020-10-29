@@ -1,7 +1,3 @@
----
- created: 2020-10-29T20:31:26.659Z
----
-
 # Jekyll & Github-pages
 
 <!-- Promise: Build your own website in 5min; spend hours adjusting style & content -->
