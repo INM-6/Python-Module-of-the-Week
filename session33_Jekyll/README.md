@@ -76,7 +76,7 @@
 
 
 ## Our Websites
-* [alexvanmegen.github.io](https://alexvanmegen.github.io)
+* [alexvanmeegen.github.io](https://alexvanmeegen.github.io)
 * [rgutzen.github.io](https://rgutzen.github.io)
 * [your website coming soon...](#)
 
