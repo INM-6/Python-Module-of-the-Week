@@ -62,9 +62,8 @@
 ## Extras
 <!-- 7min, Robin -->
 * Analytics
-    * Counts Users
-    * Characterizes Usage
-    * Acquisition
+    * Counts users, characterizes usage and acquisition
+    * For setup just copy your tracking ID into you theme config
 * Robots & SEO
     * a robots.txt file tells search engines how to crawl you website
     * not necessary for small websites
