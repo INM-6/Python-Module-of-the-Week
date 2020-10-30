@@ -55,7 +55,6 @@
 * [Themes](https://jekyllrb.com/docs/themes/)
     * takes care of style
     * takes care of display(-size, -layout, -devices)
-    * either fork or use Gemfile
     * [Minima](https://github.com/jekyll/minima)
     * [Minimal-Mistakes](https://github.com/mmistakes/minimal-mistakes)
     * [Beautiful-Jekyll](https://github.com/daattali/beautiful-jekyll)
@@ -66,21 +65,23 @@
     * Counts Users
     * Characterizes Usage
     * Acquisition
-* Robots/SEO
-    * *todo*
-* License/Impressum
-    * any license is better than no license, [choose a license](https://choosealicense.com/)
-    * *todo*
-* use your own URL
-* Synergy with Reveal.js
-
+* Robots & SEO
+    * a robots.txt file tells search engines how to crawl you website
+    * not necessary for small websites
+    * [example for Jekyll](https://stackoverflow.com/questions/41033626/whats-the-best-way-to-write-robots-txt-for-github-pages-using-multiple-repos)
+* Impressum & License
+    * Content is automatically copyrighted
+    * A [license](https://choosealicense.com/) can further specify share rights
+    * Don't upload content copyrighted by others
+    * Cite creative commons work [appropriately](https://libguides.midlandstech.edu/images/cc)
+* You can use your own URL with Github pages
+* Sharing slides
+    * Most browser can display PDFs
+    * Powepoints can be displayed via [office.com sharepoints](https://www.microsoft.com/en-us/microsoft-365/blog/2010/09/23/how-to-embed-a-powerpoint-presentation-on-a-web-page/)
+    * Reveal.js slides are already website
+    * [Encrypt](https://robinmoisson.github.io/staticrypt/) content for restricted access
 
 ## Our Websites
 * [alexvanmegen.github.io](https://alexvanmegen.github.io)
 * [rgutzen.github.io](https://rgutzen.github.io)
 * [your website coming soon...](#)
-
-<!-- static/dymanic
-frontend/backend
-index
--->
