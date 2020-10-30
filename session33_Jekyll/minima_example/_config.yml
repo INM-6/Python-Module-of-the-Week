@@ -1,8 +1,6 @@
 title: Home
 author:
-  name: Ludwig Boltzmann
+  name: Bilbo Baggins
 description: A party without a cake is just a meeting
-
-show_excerpts: false
 
 remote_theme: jekyll/minima

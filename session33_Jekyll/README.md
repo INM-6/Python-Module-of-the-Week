@@ -10,7 +10,7 @@
     * accessibility
     * online CV
     * demystify 'web-development'
-    * ["Web design: Webcraft 101"](https://www.nature.com/articles/nj7487-255a)
+    * see [Daniela Witten's opinion](https://twitter.com/daniela_witten/status/1321988664545570817?s=09) and [tons of other reasons](https://www.google.com/search?q=why+every+academic+should+have+a+personal+website)
 * Examples
     * [Lea Duncker](https://leaduncker.github.io/)
     * [Richard Gao](http://www.rdgao.com/)
@@ -30,7 +30,7 @@
 * HTML & CSS
     * Header, Footer, Body, Metadata
     * HTML is rendered in browser
-    * Structure->HTML, Style->CSS
+    * structure -> HTML, style -> CSS
 * [Github pages](https://pages.github.com/)
     * provides webhosting
     * based on git repositories
@@ -45,9 +45,9 @@
     * Webpage <- Jekyll <- Markdown
 * Gem
     * Ruby packages
-    * Gemfile collects dependencies
+    * `Gemfile` collects dependencies
     * Bundler is the gem package manager
-* _config.yml
+* `_config.yml`
     * jekyll configuration
 * run Jekyll locally
     * [Ubuntu install guide](https://jekyllrb.com/docs/installation/ubuntu/)
@@ -62,6 +62,7 @@
 ## Extras
 <!-- 7min, Robin -->
 * Analytics
+<<<<<<< HEAD
     * Counts Users
     * Characterizes Usage
     * Acquisition
@@ -80,8 +81,21 @@
     * Powepoints can be displayed via [office.com sharepoints](https://www.microsoft.com/en-us/microsoft-365/blog/2010/09/23/how-to-embed-a-powerpoint-presentation-on-a-web-page/)
     * Reveal.js slides are already website
     * [Encrypt](https://robinmoisson.github.io/staticrypt/) content for restricted access
+=======
+    * counts users
+    * characterizes usage
+    * acquisition
+* Robots/SEO
+    * *todo*
+* License/Impressum
+    * any license is better than no license, [choose a license](https://choosealicense.com/)
+    * *todo*
+* use your own URL
+* Synergy with Reveal.js
+
+>>>>>>> 59bdb70e9f9242677f7bcf32b30917ba849b0f54
 
 ## Our Websites
-* [alexvanmegen.github.io](https://alexvanmegen.github.io)
+* [alexvanmeegen.github.io](https://alexvanmeegen.github.io)
 * [rgutzen.github.io](https://rgutzen.github.io)
 * [your website coming soon...](#)

@@ -1,8 +1,8 @@
 ---
 layout: home
-title: Home sweet home
+title: There and Back Again
 ---
 
 ## Welcome!
 
-Here be dragons.
+Not all those who wander are lost.
