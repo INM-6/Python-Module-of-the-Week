@@ -58,6 +58,7 @@
     * [Minima](https://github.com/jekyll/minima)
     * [Minimal-Mistakes](https://github.com/mmistakes/minimal-mistakes)
     * [Beautiful-Jekyll](https://github.com/daattali/beautiful-jekyll)
+    * *recommendation* from discussion during the PyMotW: use a well curated theme and don't mess around (too much) with it - it will likely save you a lot of trouble in the long run
 
 ## Extras
 <!-- 7min, Robin -->
