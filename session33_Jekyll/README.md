@@ -12,7 +12,7 @@
     * demystify 'web-development'
     * ["Web design: Webcraft 101"](https://www.nature.com/articles/nj7487-255a)
 * Examples
-    * [Lea Duncker](https://leaduncker.github.io/12)
+    * [Lea Duncker](https://leaduncker.github.io/)
     * [Richard Gao](http://www.rdgao.com/)
     * [Ashley Juavinett](https://ashleyjuavinett.com/)
     * [Sara Summerton](https://sara-es.github.io/)
@@ -71,6 +71,7 @@
     * any license is better than no license, [choose a license](https://choosealicense.com/)
     * *todo*
 * use your own URL
+* Synergy with Reveal.js
 
 
 ## Our Websites
