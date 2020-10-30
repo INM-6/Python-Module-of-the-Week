@@ -55,6 +55,7 @@
 * [Themes](https://jekyllrb.com/docs/themes/)
     * takes care of style
     * takes care of display(-size, -layout, -devices)
+    * either fork or use Gemfile
     * [Minima](https://github.com/jekyll/minima)
     * [Minimal-Mistakes](https://github.com/mmistakes/minimal-mistakes)
     * [Beautiful-Jekyll](https://github.com/daattali/beautiful-jekyll)
