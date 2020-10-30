@@ -62,7 +62,6 @@
 ## Extras
 <!-- 7min, Robin -->
 * Analytics
-<<<<<<< HEAD
     * Counts Users
     * Characterizes Usage
     * Acquisition
@@ -81,19 +80,6 @@
     * Powepoints can be displayed via [office.com sharepoints](https://www.microsoft.com/en-us/microsoft-365/blog/2010/09/23/how-to-embed-a-powerpoint-presentation-on-a-web-page/)
     * Reveal.js slides are already website
     * [Encrypt](https://robinmoisson.github.io/staticrypt/) content for restricted access
-=======
-    * counts users
-    * characterizes usage
-    * acquisition
-* Robots/SEO
-    * *todo*
-* License/Impressum
-    * any license is better than no license, [choose a license](https://choosealicense.com/)
-    * *todo*
-* use your own URL
-* Synergy with Reveal.js
-
->>>>>>> 59bdb70e9f9242677f7bcf32b30917ba849b0f54
 
 ## Our Websites
 * [alexvanmeegen.github.io](https://alexvanmeegen.github.io)
