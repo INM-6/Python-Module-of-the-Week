@@ -1,0 +1,4 @@
+Sphinx example
+==============
+
+.. automodule:: utils
