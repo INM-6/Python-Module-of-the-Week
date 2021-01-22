@@ -1,0 +1,434 @@
+" vi: ft=vim
+
+set nocompatible
+
+" set directories for temporary files
+set backupdir=~/.vim/backup/,~/.backup/,/tmp//
+set directory=~/.vim/swp/,~/.swp/,/tmp//
+set undodir=~/.vim/undo/,~/.undo/,/tmp//
+
+let mapleader = " "
+
+" Key Combos
+set showcmd
+set timeout
+set ttimeout
+set timeoutlen=1000
+set ttimeoutlen=0
+
+" update stuff more quickly (default 4000)
+set updatetime=1000
+
+" make splits mouse selectable
+if has('mouse')
+  set mouse=a
+endif
+
+" turn hybrid line numbers on
+set number relativenumber
+
+" hide buffers instead of closing them
+set hidden
+
+" Command Line Completion
+set wildmenu
+
+" buffer screen updates
+set lazyredraw
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" keep backup and undo files
+set backup
+set undofile
+
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
+
+" Always use vertical diffsplits
+set diffopt+=vertical
+
+" set tabs to four spaces and indent accordingly
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
+" Enable file type detection
+filetype on
+
+" deal with languages that are fussy about tabs vs spaces
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" allow for modelines to set options automatically
+set modeline
+set modelines=5
+
+" Search Settings
+set incsearch
+set ignorecase smartcase
+set hlsearch
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif
+
+" Always go to first line for commit messages
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
+" Cursor Shapes
+let &t_SI = "\<esc>[5 q"
+let &t_SR = "\<esc>[5 q"
+let &t_EI = "\<esc>[2 q"
+
+" Highlight Cursor Line
+set cursorline
+set nocursorcolumn
+
+" Scroll Offset
+set scrolloff=5
+set sidescrolloff=5
+set winheight=5
+set winminheight=5
+
+" neovim specifics
+if has('nvim')
+    " link neovim to the correct python version
+    let g:python3_host_prog = expand('$HOME/miniconda3/envs/neovim/bin/python')
+    " Incremental Find & Replace
+    set inccommand=split
+endif
+
+" Automatically install vim-plug if it's not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !mkdir -p ~/.vim/autoload
+    silent !wget -qO ~/.vim/autoload/plug.vim
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/bundle')
+
+" Visuals
+Plug 'chriskempson/base16-vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" Tmux
+Plug 'jgdavey/tslime.vim'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Tests
+Plug 'janko/vim-test'
+
+" Navigation
+Plug 'tpope/vim-vinegar'
+
+" Searching
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim', { 'do': 'mkdir -p ~/bin && wget -qO ~/bin/ack https://beyondgrep.com/ack-v3.1.2 && chmod 0755 ~/bin/ack' }
+
+" Folding
+Plug 'Konfekt/FastFold'
+
+" Meta
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+
+" Undo
+Plug 'sjl/gundo.vim'
+
+" Advanced Substitution and Abbreviation
+Plug 'tpope/vim-abolish'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Linting
+Plug 'dense-analysis/ale'
+
+" Autocompletion
+if has("python3")
+    Plug 'Valloric/YouCompleteMe'
+endif
+
+" Operators
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-titlecase'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ReplaceWithRegister'
+
+" Text Objects
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-user'
+
+" Python
+Plug 'tmhedberg/SimpylFold'
+Plug 'vim-scripts/indentpython.vim'
+
+" Markdown
+" Plug 'plasticboy/vim-markdown'
+
+" LaTeX
+Plug 'lervag/vimtex'
+Plug 'midick/tex-conceal.vim', {'for': ['tex', 'md']}
+
+" VimWiki
+Plug 'vimwiki/vimwiki' " , {'branch': 'dev'}
+
+call plug#end()
+
+" YouCompleteMe Settings
+set rtp+=~/.vim/bundle/YouCompleteMe
+let g:ycm_server_python_interpreter=expand('$HOME/miniconda3/envs/neovim/bin/python')
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_filetype_blacklist = {
+        \ 'tagbar': 1,
+        \ 'notes': 1,
+        \ 'netrw': 1,
+        \ 'unite': 1,
+        \ 'text': 1,
+        \ 'pandoc': 1,
+        \ 'infolog': 1,
+        \ 'leaderf': 1,
+        \ 'mail': 1
+        \}
+
+" ultisnips settings
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-s>"
+let g:UltiSnipsJumpBackwardTrigger="<c-x>"
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" add fzf to path
+set rtp+=~/.fzf
+
+" fzf mappings
+let g:fzf_action = {'ctrl-h': 'split', 'ctrl-v': 'vsplit'}
+nnoremap <C-F> :Files<CR>
+nnoremap <C-B> :Buffers<CR>
+
+" " automatically match the theme to the one set by base16-shell
+" if filereadable(expand("~/.vimrc_background"))
+"   let base16colorspace=256
+"   source ~/.vimrc_background
+" endif
+
+" Airline
+let g:airline_theme='base16color'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_inactive_collapse = 0
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.notexists = ' ∄'
+
+" netrw
+let g:netrw_fastbrowse = 0
+
+" tslime
+let g:tslime_always_current_session = 1
+
+" vim-test
+let g:test#strategy = "tslime"
+let g:test#preserve_screen = 1
+let g:test#python#runner = 'nose'
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+" nmap <silent> t<C-s> :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" Faster Scrolling
+nnoremap <C-E> 3<C-E>
+nnoremap <C-Y> 3<C-Y>
+
+" Buffer Navigation
+noremap <silent> <leader>]  :bn<CR>
+noremap <silent> <leader>[  :bp<CR>
+
+" Tab Navigation
+" nnoremap <leader>t :tabedit %<CR>
+" nnoremap <leader>T :tabclose<CR>
+" nnoremap <Tab> :tabnext<CR>
+" nnoremap <S-Tab> :tabprevious<CR>
+
+" switch to last active tab
+" if !exists('g:Lasttab')
+    " let g:Lasttab = 1
+    " let g:Lasttab_backup = 1
+" endif
+" autocmd! TabLeave * let g:Lasttab_backup = g:Lasttab | let g:Lasttab = tabpagenr()
+" autocmd! TabClosed * let g:Lasttab = g:Lasttab_backup
+" nmap <silent> <Leader>` :exe "tabn " . g:Lasttab<CR>
+
+" Split Navigation
+noremap <leader>- :split<CR>
+noremap <leader>= :vsplit<CR>
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
+
+" reload vimrc
+map <leader>r :source ~/.vimrc<CR>
+
+" split lines
+nnoremap <leader><leader> :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+
+" clear search highlighting and redraw the screen
+nnoremap <C-L> :nohlsearch<CR><C-L>
+
+" save current file
+nmap <leader>w :w<CR>
+
+" fugitive mappings
+nmap <leader>gw :Gwrite<CR>
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gl :G log<CR>
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gr :Gread<CR>
+nmap <leader>gp :Gpush<CR>
+
+" git gutter mappings
+let g:gitgutter_map_keys = 0
+nmap <leader>cp <Plug>(GitGutterPreviewHunk)
+nmap <leader>cu <Plug>(GitGutterUndoHunk)
+nmap <leader>cs <Plug>(GitGutterStageHunk)
+nmap [c <Plug>(GitGutterPrevHunk)
+nmap ]c <Plug>(GitGutterNextHunk)
+omap ic <Plug>(GitGutterTextObjectInnerPending)
+omap ac <Plug>(GitGutterTextObjectOuterPending)
+xmap ic <Plug>(GitGutterTextObjectInnerVisual)
+xmap ac <Plug>(GitGutterTextObjectOuterVisual)
+
+" Linting Settings
+let g:ale_linters = {'python': ['flake8']}
+noremap <leader>e   :ALENext<CR>
+noremap <leader>E   :ALEPrevious<CR>
+
+" set ack.vim to use ag by default if it is available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" show Tabs and Whitespaces
+:set list
+:set listchars=tab:>·,nbsp:␣,trail:•,precedes:«,extends:»
+
+" Snakemake Syntax Highlighting
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *.rules set syntax=snakemake
+au BufNewFile,BufRead *.snakefile set syntax=snakemake
+au BufNewFile,BufRead *.snake set syntax=snakemake
+
+" vimwiki/vimwiki
+let g:vimwiki_list = [
+    \{
+        \ 'path': '~/vimwiki/',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md',
+        \ 'folding': 'expr',
+        \ 'customwiki2html': expand('$HOME/.vim/bundle/vimwiki/autoload/vimwiki/customwiki2html.sh'),
+    \},
+    \{
+        \ 'path': '~/personalwiki/',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md',
+    \},
+    \{
+        \ 'path': '~/Documents/PnP/zauberschule/wiki/',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md',
+    \},
+    \{
+        \ 'path': '~/Documents/PnP/heist/wiki/',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md',
+    \}]
+
+  function! VimwikiLinkHandler(link)
+    let link = a:link
+    if link =~# '\(\mwiki\d\+\|diary\|local\|file\):'
+        return 0
+    endif
+    if link =~ '\.[a-z]*\>'
+        if link !~ '\.\(md\|tex\|py\)\>'
+            call vimwiki#base#open_link('e:', 'file:' . link)
+            return 1
+        endif
+    endif
+    return 0
+  endfunction
+
+function! s:Annotate(file)
+    let vimwiki_file = system('python ~/vimwiki/annotate.py ' . a:file)
+    execute 'e '. vimwiki_file
+endfunction
+
+nnoremap <leader>a :call fzf#run({'source': 'ls ~/Documents/papers/', 'sink': function('<sid>Annotate')})<cr>
+
+" vimtex settings
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_enabled=0
+let g:vimtex_compiler_latexmk_engines={'-': '-lualatex', 'lualatex': '-lualatex'}
+let g:vimtex_indent_on_ampersands=0
+
+" concelament sttings
+let g:tex_conceal = "abdgm"
+set conceallevel=2
+hi Conceal cterm=NONE ctermbg=NONE ctermfg=darkblue
+" spellchecking and autocorrect
+
+" setlocal spell
+" set spelllang=de,en_us
+" inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" Latex Math Syntax in Markdown
+" let g:tex_conceal = ""
+" let g:vim_markdown_math = 1
+
+" Thyme
+nmap <leader>t :silent :!thyme<cr>
+
+" automatically set paste / nopaste when pasting
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
