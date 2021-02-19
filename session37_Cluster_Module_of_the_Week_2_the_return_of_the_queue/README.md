@@ -35,6 +35,7 @@ put something like:
 ```
 Host hambach
     Hostname hambach.inm.kfa-juelich.de
+    ProxyJump: login
     User dick
     IdentitiesOnly yes
     IdentityFile ~/.ssh/juelich_git
@@ -47,7 +48,14 @@ Host login
     IdentityFile ~/.ssh/juelich_git
     ForwardAgent yes
 ```
-into `~/.ssh/config` and thus reduce the access command to `ssh login`
+into `~/.ssh/config` and thus reduce the access command to `ssh login` and as we set `ProxyJump: login` for hambach we don't even have to `ssh -J login hambach` but can simply `ssh hambach`.
+
+## Moving Files
+when moving files to jureca it should be mentioned that space and number of files in the home directory are very limited.
+Whenever possible use your project folder.
+The cleanest way of doing so is by activating your project via `jutil env activate -p <project id>` and then use the `$PROJECT`.
+
+A way of figuring out which project you could activate is via Dennis' terminal voodoo `set | grep PROJECT`.
 
 # Code
 
@@ -64,11 +72,13 @@ But what are Modules?
 `module avail`
 `module load <module name>`
 `module unload <module name>`
+`module spider <module name>`
 
 ## Git on Jureca
 While hambach allows you to clone git repositories easily (especially using agent forwarding), outgoing ssh communication is prohibited on Jureca.
 This still leaves using git via https.
-The problem with this are of course passwords, so it is recommended to use access tokens
+The problem with this are of course passwords, so it is recommended to use access tokens.
+Once you created such a token, use `git config --global credential.helper store` to enable git to store you "Password", then `git clone`, type in your normal username when prompted but use the access token instead of a password.
 
 # Running Jobs
 The batch scheduling software on both clusters is called SLURM.
@@ -78,11 +88,36 @@ Basic Stuff:
 `squeue`
 `sinfo`
 `scancel <jobid>`
+`sacct`
 
 Starting Job:
 `srun`
 `salloc`
 `sbatch`
 
-Jobfile Stuff
+## Jobfile Stuff
+for example:
+```
+#!/bin/bash -x
+#SBATCH --account=<project id>
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=32
+#SBATCH --output=snake.out.%j
+#SBATCH --error=snake.err.%j
+#SBATCH --time=6:00:00
+#SBATCH --partition=dc-gpu
+#SBATCH --gres=gpu:1
 
+cd /p/home/jusers/dick3/jureca/memory_kernel
+module load Python PyTorch
+../.local/bin/snakemake\
+        --cluster ./submit_script.py\
+        --jobs 100\
+        --cluster-config cluster.json\
+        --rerun-incomplete\
+        --keep-going
+```
+
+whereby `--account` is only necessary on jureca and only if you have not activated your project using `jutil`.
