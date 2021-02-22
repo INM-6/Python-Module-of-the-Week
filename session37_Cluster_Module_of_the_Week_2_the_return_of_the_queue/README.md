@@ -95,6 +95,10 @@ Starting Job:
 `salloc`
 `sbatch`
 
+Interactive Jobs:
+- `srun --pty bash` to run bash interactively using the allocated resources
+- `--pty` has to be the last argument
+
 ## Jobfile Stuff
 for example:
 ```
