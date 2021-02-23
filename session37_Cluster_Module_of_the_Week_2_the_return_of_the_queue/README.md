@@ -78,7 +78,7 @@ But what are Modules?
 While hambach allows you to clone git repositories easily (especially using agent forwarding), outgoing ssh communication is prohibited on Jureca.
 This still leaves using git via https.
 The problem with this are of course passwords, so it is recommended to use access tokens.
-Once you created such a token, use `git config --global credential.helper store` to enable git to store you "Password", then `git clone`, type in your normal username when prompted but use the access token instead of a password.
+Once you created such a token, use `git config --local credential.helper store` to enable git to store you "Password", then `git clone`, type in your normal username when prompted but use the access token instead of a password.
 
 # Running Jobs
 The batch scheduling software on both clusters is called SLURM.
