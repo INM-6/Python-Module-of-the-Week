@@ -1,0 +1,4 @@
+- presentation of the basics: http://slides.com/johanneskoester/snakemake
+- presentation of new features in V6: http://slides.com/johanneskoester/snakemake-6
+- our cookbook repo: https://github.com/INM-6/Snakemake-cookbook
+- the official documentation: https://snakemake.readthedocs.io/en/stable/index.html
