@@ -1,0 +1,9 @@
+- Colours:
+    - [SRon Colour](http://personal.sron.nl/~pault/)
+    - Colorblind map Matplotlib: [cividis](https://matplotlib.org/stable/users/prev_whats_new/whats_new_2.2.html#cividis-colormap)
+    - set transparent background in [plt.savefig](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html)
+    - [color palette tool](https://gka.github.io/palettes/)
+- [mayavi](https://docs.enthought.com/mayavi/mayavi/) for 3D plotting
+- [class](./visualization.py) for plotting presets
+- [inset_axes](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.inset_axes.html)
+- [UpsetR](https://github.com/hms-dbmi/UpSetR)
