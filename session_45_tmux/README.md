@@ -1,0 +1,27 @@
+# tmux
+
+- (this was an ad-lib hands-on session, here I'm collecting the resources I remember using)
+- [tmux](https://github.com/tmux/tmux)
+- key mappings use a "leader" mapping which is always pressed and released first followed by another (multi-)key mapping to trigger an action
+- [Cheat Sheet](https://duckduckgo.com/?q=tmux+cheat+sheet&ia=cheatsheet&iax=1)
+- pre-installed on hambach (currently at version 2.3)
+- major use cases:
+    - allows multiple terminal sessions per window
+    - essentially offers window management for terminal sessions which can also talk to one another
+    - processes can be detached from the controlling terminal and still be active
+        - (you can manually detach from the tmux session or even just close your terminal emulator, but everything in your tmux session keeps running)
+- remember to check whether you already have a running tmux session before starting a new one!
+- tips on scrolling and copying
+    - zoom in on the pane you want to copy from and use the mouse outside of mouse mode
+    - enter copy mode to enable scrolling
+    - in mouse mode, selection is pane-aware and selected text is automatically copied to tmux's clipboard
+    - [yank to system clipboard in copy mode](https://github.com/Kleinjohann/dotfiles/blob/adf3902f23ccf6f8944bf3583302f8438e519828/tmux.conf.symlink#L104)
+- a few more snippets I like to use:
+    - [attach to a session if it exists, otherwise create it](https://github.com/Kleinjohann/dotfiles/blob/adf3902f23ccf6f8944bf3583302f8438e519828/bashrc.symlink#L144-L153)
+        - note that calling `tm` without any arguments starts [fzf](https://github.com/junegunn/fzf) to select a tmux session - requires fzf to be installed in order to work
+    - [automatically attach to or create a tmux session when opening a terminal](https://github.com/Kleinjohann/dotfiles/blob/adf3902f23ccf6f8944bf3583302f8438e519828/bashrc.symlink#L155-L168)
+        - uses the `tm` function, see above
+    - [send code to neighbouring terminal in the same tmux window from within vim, rerun last command in neighbouring terminal from within vim](https://github.com/Kleinjohann/dotfiles/blob/adf3902f23ccf6f8944bf3583302f8438e519828/vimrc.symlink#L302-L311)
+        - requires the vim plugin [tslime](https://github.com/jgdavey/tslime.vim)
+        - the mapping to rerun the previous command assumes that the shell is in vi-mode
+    - [my tmux config](https://github.com/Kleinjohann/dotfiles/blob/master/tmux.conf.symlink)
