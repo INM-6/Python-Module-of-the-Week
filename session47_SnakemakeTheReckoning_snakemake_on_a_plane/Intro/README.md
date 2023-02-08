@@ -1,0 +1,3 @@
+- Talk by Johannes Köster himself: https://slides.com/johanneskoester/snakemake-1-5h-tutorial
+- Documentation: https://snakemake.readthedocs.io/en/stable/
+- our cookbook repo: https://github.com/INM-6/Snakemake-cookbook
