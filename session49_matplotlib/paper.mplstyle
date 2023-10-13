@@ -1,0 +1,33 @@
+# Font and labelsizes
+xtick.labelsize : 7
+ytick.labelsize : 7
+axes.labelsize : 8
+legend.fontsize : 7
+axes.titlesize : 9
+
+# Fonts
+font.family : sans-serif
+font.sans-serif : Arial
+
+# Linestyle
+axes.linewidth : 0.5
+
+# Remove top and right spines
+axes.spines.right: False
+axes.spines.top: False
+
+# Rendering params
+savefig.facecolor: 'w'
+axes.unicode_minus: False
+
+# Tick sizes
+xtick.major.size : 1
+xtick.major.width : 0.5
+ytick.major.size : 1
+ytick.major.width : 0.5
+xtick.major.pad : 1
+ytick.major.pad : 1
+xtick.minor.size : 0.7
+xtick.minor.width : 0.4
+ytick.minor.size : 0.7
+ytick.minor.width : 0.4
